@@ -1,62 +1,86 @@
 
-import { Calendar, FileText } from 'lucide-react';
+import { Calendar, Video, Image, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const BlogSection = () => {
-  const blogPosts = [
+  const activities = [
     {
       id: 1,
-      title: "Empowering Youth Through Education: Our 2024 Impact Report",
-      excerpt: "Discover how Al-Takathuf has transformed the lives of over 500 young people through our comprehensive education programs this year.",
+      title: "Youth Education Workshop - Digital Skills Training",
+      description: "Our latest workshop helped 50+ young people develop essential computer and internet skills for better employment opportunities.",
       date: "2024-12-15",
-      category: "Impact Report",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=250&fit=crop",
-      readTime: "5 min read"
+      category: "Education",
+      media: {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop",
+        alt: "Students learning computer skills"
+      },
+      location: "Community Center, Downtown"
     },
     {
       id: 2,
-      title: "Community Development Workshop: Building Stronger Neighborhoods",
-      excerpt: "Join us for our upcoming workshop series focused on sustainable community development strategies and local leadership training.",
+      title: "Community Clean-up Drive",
+      description: "Volunteers from across the city joined us for a neighborhood beautification project, cleaning parks and planting trees.",
       date: "2024-12-10",
-      category: "Events",
-      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=250&fit=crop",
-      readTime: "3 min read"
+      category: "Environment",
+      media: {
+        type: "video",
+        url: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=250&fit=crop",
+        alt: "Community volunteers cleaning"
+      },
+      location: "Central Park Area"
     },
     {
       id: 3,
-      title: "Success Story: From Participant to Community Leader",
-      excerpt: "Meet Sarah, who started as a program participant and now leads our women's empowerment initiative in her local community.",
+      title: "Women's Empowerment Seminar",
+      description: "Inspiring session with successful women entrepreneurs sharing their journey and mentoring local women to start their own businesses.",
       date: "2024-12-05",
-      category: "Success Stories",
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=250&fit=crop",
-      readTime: "4 min read"
+      category: "Empowerment",
+      media: {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=250&fit=crop",
+        alt: "Women entrepreneurs speaking"
+      },
+      location: "Business Hub"
     },
     {
       id: 4,
-      title: "Digital Skills Training: Bridging the Technology Gap",
-      excerpt: "Our new digital literacy program is helping community members develop essential technology skills for the modern workforce.",
+      title: "Health Awareness Campaign",
+      description: "Free health checkups and awareness sessions about preventive healthcare reached over 200 community members.",
       date: "2024-11-28",
-      category: "Programs",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=250&fit=crop",
-      readTime: "6 min read"
+      category: "Health",
+      media: {
+        type: "video",
+        url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=250&fit=crop",
+        alt: "Health checkup camp"
+      },
+      location: "Mobile Health Unit"
     },
     {
       id: 5,
-      title: "Partnership Announcement: Collaborating for Greater Impact",
-      excerpt: "We're excited to announce our new partnership with local universities to expand educational opportunities in underserved communities.",
+      title: "Children's Art & Craft Workshop",
+      description: "Creative sessions for underprivileged children, providing art supplies and teaching various craft techniques to boost creativity.",
       date: "2024-11-20",
-      category: "Announcements",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=250&fit=crop",
-      readTime: "3 min read"
+      category: "Children",
+      media: {
+        type: "image",
+        url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop",
+        alt: "Children doing arts and crafts"
+      },
+      location: "Al-Takathuf Center"
     },
     {
       id: 6,
-      title: "Volunteer Spotlight: Making a Difference Together",
-      excerpt: "Celebrating our dedicated volunteers who give their time and expertise to support our mission of community empowerment.",
+      title: "Food Distribution Drive",
+      description: "Monthly food distribution program serving 150+ families in need, providing essential groceries and fresh produce.",
       date: "2024-11-15",
-      category: "Community",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=250&fit=crop",
-      readTime: "4 min read"
+      category: "Relief",
+      media: {
+        type: "video",
+        url: "https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&h=250&fit=crop",
+        alt: "Food distribution activity"
+      },
+      location: "Various Neighborhoods"
     }
   ];
 
@@ -69,55 +93,82 @@ const BlogSection = () => {
     });
   };
 
+  const getCategoryColor = (category: string) => {
+    const colors = {
+      'Education': 'bg-blue-50 text-blue-600 border-blue-200',
+      'Environment': 'bg-green-50 text-green-600 border-green-200',
+      'Empowerment': 'bg-purple-50 text-purple-600 border-purple-200',
+      'Health': 'bg-red-50 text-red-600 border-red-200',
+      'Children': 'bg-yellow-50 text-yellow-600 border-yellow-200',
+      'Relief': 'bg-orange-50 text-orange-600 border-orange-200'
+    };
+    return colors[category as keyof typeof colors] || 'bg-gray-50 text-gray-600 border-gray-200';
+  };
+
   return (
     <section id="blog" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
-            Latest News & Stories
+            Our Activities & Impact
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in">
-            Stay updated with our latest initiatives, success stories, and community impact reports
+            See our foundation in action - from educational workshops to community outreach programs
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {blogPosts.map((post, index) => (
+          {activities.map((activity, index) => (
             <Card 
-              key={post.id} 
-              className="hover-scale bg-white shadow-lg border-0 overflow-hidden animate-fade-in"
+              key={activity.id} 
+              className="hover-scale bg-white shadow-lg border-0 overflow-hidden animate-fade-in group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="aspect-video overflow-hidden">
+              <div className="relative aspect-video overflow-hidden">
                 <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  src={activity.media.url} 
+                  alt={activity.media.alt}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-              </div>
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-teal-600 font-medium bg-teal-50 px-3 py-1 rounded-full">
-                    {post.category}
-                  </span>
-                  <span className="text-sm text-gray-500">{post.readTime}</span>
+                <div className="absolute top-3 right-3">
+                  {activity.media.type === 'video' ? (
+                    <div className="bg-black/70 text-white p-2 rounded-full">
+                      <Video size={16} />
+                    </div>
+                  ) : (
+                    <div className="bg-black/70 text-white p-2 rounded-full">
+                      <Image size={16} />
+                    </div>
+                  )}
                 </div>
-                <CardTitle className="text-lg font-bold text-gray-800 line-clamp-2 hover:text-teal-600 transition-colors">
-                  {post.title}
+              </div>
+              
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between mb-3">
+                  <span className={`text-sm font-medium px-3 py-1 rounded-full border ${getCategoryColor(activity.category)}`}>
+                    {activity.category}
+                  </span>
+                  <div className="flex items-center text-gray-500 text-sm">
+                    <Calendar size={14} className="mr-1" />
+                    {formatDate(activity.date)}
+                  </div>
+                </div>
+                <CardTitle className="text-lg font-bold text-gray-800 line-clamp-2 group-hover:text-teal-600 transition-colors">
+                  {activity.title}
                 </CardTitle>
               </CardHeader>
+              
               <CardContent className="pt-0">
                 <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                  {post.excerpt}
+                  {activity.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center text-gray-500 text-sm">
-                    <Calendar size={16} className="mr-2" />
-                    {formatDate(post.date)}
-                  </div>
-                  <button className="text-teal-600 hover:text-teal-700 font-medium text-sm flex items-center transition-colors">
-                    <FileText size={16} className="mr-1" />
+                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                    📍 {activity.location}
+                  </span>
+                  <button className="text-teal-600 hover:text-teal-700 font-medium text-sm flex items-center transition-colors group">
                     Read More
+                    <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                   </button>
                 </div>
               </CardContent>
@@ -127,7 +178,7 @@ const BlogSection = () => {
 
         <div className="text-center">
           <button className="bg-teal-600 text-white px-8 py-3 rounded-full hover:bg-teal-700 transition-colors duration-300 font-medium animate-fade-in">
-            View All Articles
+            View All Activities
           </button>
         </div>
       </div>
