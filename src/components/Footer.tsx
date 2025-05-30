@@ -7,9 +7,6 @@ const Footer = () => {
           <div className="mb-4 md:mb-0">
             <span className="text-gray-400">© 2025 Altakathif</span>
           </div>
-          <div className="text-gray-400">
-            Powered by <span className="text-teal-400">Webador</span>
-          </div>
         </div>
       </div>
     </footer>
