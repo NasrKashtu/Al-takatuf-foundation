@@ -90,11 +90,20 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
   
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Ensure dark mode applies to all elements */
+  .dark * {
+    @apply border-gray-700;
+  }
+
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
   }
 }
 
@@ -127,6 +136,17 @@
 
   .hover-scale:hover {
     transform: scale(1.02);
+  }
+
+  /* RTL support for Arabic */
+  [dir="rtl"] .space-x-8 > * + * {
+    margin-left: 0;
+    margin-right: 2rem;
+  }
+
+  [dir="rtl"] .space-x-2 > * + * {
+    margin-left: 0;
+    margin-right: 0.5rem;
   }
 
   @keyframes fadeIn {

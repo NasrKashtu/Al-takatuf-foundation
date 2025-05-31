@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'en' | 'ar';
@@ -16,6 +15,9 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const translations = {
   en: {
+    // Site name
+    siteName: "ALTAKATHUF",
+    // ... keep existing code (all current translations)
     welcome: "Welcome to Altakathif",
     description: "Altakathif is a personal organization dedicated to providing unique solutions for personal growth and development. We strive to empower individuals to reach their full potential and achieve their goals.",
     services: "Services",
@@ -67,9 +69,37 @@ const translations = {
     businessHub: "Business Hub",
     mobileHealthUnit: "Mobile Health Unit",
     altakathufCenter: "Al-Takathuf Center",
-    variousNeighborhoods: "Various Neighborhoods"
+    variousNeighborhoods: "Various Neighborhoods",
+    // New sections
+    aboutUs: "About Us",
+    aboutUsTitle: "Empowering Communities Through Action",
+    aboutUsDesc: "Altakathuf is dedicated to creating positive change in communities through education, empowerment, and sustainable development programs.",
+    ourMission: "Our Mission",
+    ourVision: "Our Vision",
+    missionText: "To empower individuals and communities through innovative programs that foster growth, education, and sustainable development.",
+    visionText: "A world where every individual has the opportunity to reach their full potential and contribute meaningfully to society.",
+    faq: "Frequently Asked Questions",
+    faqDesc: "Find answers to common questions about our programs and services.",
+    testimonials: "What People Say",
+    testimonialsDesc: "Hear from those who have experienced our programs firsthand.",
+    getInTouch: "Get in Touch",
+    ourLocation: "Our Location",
+    followUs: "Follow Us",
+    allRightsReserved: "All rights reserved.",
+    // Slider content
+    sliderTitle: "Our Impact in Action",
+    sliderDesc: "Discover how we're making a difference in communities through our various programs and initiatives.",
+    slide1Title: "Educational Excellence",
+    slide1Desc: "Empowering youth through quality education and skill development programs.",
+    slide2Title: "Community Development",
+    slide2Desc: "Building stronger communities through collaborative projects and initiatives.",
+    slide3Title: "Sustainable Growth",
+    slide3Desc: "Creating lasting positive change through sustainable development practices."
   },
   ar: {
+    // Site name
+    siteName: "التكاثف",
+    // ... keep existing code (all current translations)
     welcome: "مرحباً بكم في التكاثف",
     description: "التكاثف هو منظمة شخصية مخصصة لتقديم حلول فريدة للنمو والتطوير الشخصي. نحن نسعى لتمكين الأفراد من الوصول إلى إمكاناتهم الكاملة وتحقيق أهدافهم.",
     services: "الخدمات",
@@ -121,7 +151,32 @@ const translations = {
     businessHub: "مركز الأعمال",
     mobileHealthUnit: "وحدة الصحة المتنقلة",
     altakathufCenter: "مركز التكاثف",
-    variousNeighborhoods: "أحياء متنوعة"
+    variousNeighborhoods: "أحياء متنوعة",
+    // New sections
+    aboutUs: "من نحن",
+    aboutUsTitle: "تمكين المجتمعات من خلال العمل",
+    aboutUsDesc: "التكاثف مكرس لإحداث تغيير إيجابي في المجتمعات من خلال برامج التعليم والتمكين والتنمية المستدامة.",
+    ourMission: "مهمتنا",
+    ourVision: "رؤيتنا",
+    missionText: "تمكين الأفراد والمجتمعات من خلال برامج مبتكرة تعزز النمو والتعليم والتنمية المستدامة.",
+    visionText: "عالم حيث كل فرد لديه الفرصة للوصول إلى إمكاناته الكاملة والمساهمة بشكل مفيد في المجتمع.",
+    faq: "الأسئلة الشائعة",
+    faqDesc: "العثور على إجابات للأسئلة الشائعة حول برامجنا وخدماتنا.",
+    testimonials: "ماذا يقول الناس",
+    testimonialsDesc: "اسمع من أولئك الذين جربوا برامجنا بأنفسهم.",
+    getInTouch: "تواصل معنا",
+    ourLocation: "موقعنا",
+    followUs: "تابعنا",
+    allRightsReserved: "جميع الحقوق محفوظة.",
+    // Slider content
+    sliderTitle: "تأثيرنا في العمل",
+    sliderDesc: "اكتشف كيف نحدث فرقاً في المجتمعات من خلال برامجنا ومبادراتنا المختلفة.",
+    slide1Title: "التميز التعليمي",
+    slide1Desc: "تمكين الشباب من خلال برامج التعليم الجيد وتطوير المهارات.",
+    slide2Title: "تنمية المجتمع",
+    slide2Desc: "بناء مجتمعات أقوى من خلال المشاريع والمبادرات التعاونية.",
+    slide3Title: "النمو المستدام",
+    slide3Desc: "إحداث تغيير إيجابي دائم من خلال ممارسات التنمية المستدامة."
   }
 };
 

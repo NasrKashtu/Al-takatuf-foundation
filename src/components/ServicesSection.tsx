@@ -29,7 +29,7 @@ const ServicesSection = () => {
           {t('services')}
         </h2>
         
-        <div className={`grid md:grid-cols-3 gap-8 ${language === 'ar' ? 'rtl:space-x-reverse' : ''}`}>
+        <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div 
               key={index}
@@ -40,16 +40,18 @@ const ServicesSection = () => {
                   <span className="text-teal-600 dark:text-teal-300 text-lg font-medium">Service Image</span>
                 </div>
               </div>
-              <div className="p-6">
+              <div className="p-6 flex flex-col h-64">
                 <h3 className={`text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3 group-hover:text-teal-600 transition-colors duration-300 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {service.title}
                 </h3>
-                <p className={`text-gray-600 dark:text-gray-300 mb-4 leading-relaxed ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                <p className={`text-gray-600 dark:text-gray-300 mb-6 leading-relaxed flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {service.description}
                 </p>
-                <button className={`bg-teal-600 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors duration-300 ${language === 'ar' ? 'float-right' : 'float-left'}`}>
-                  {service.buttonText}
-                </button>
+                <div className={`${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                  <button className="bg-teal-600 text-white px-6 py-2 rounded hover:bg-teal-700 transition-colors duration-300 w-full md:w-auto">
+                    {service.buttonText}
+                  </button>
+                </div>
               </div>
             </div>
           ))}

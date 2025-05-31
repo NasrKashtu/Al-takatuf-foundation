@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Menu, X, Home } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import LanguageThemeSwitcher from './LanguageThemeSwitcher';
 
@@ -21,10 +21,14 @@ const Header = () => {
             className={`flex items-center gap-3 cursor-pointer text-2xl font-bold text-gray-700 dark:text-gray-200 animate-fade-in ${language === 'ar' ? 'flex-row-reverse' : ''}`}
             onClick={() => scrollToSection('home')}
           >
-            <div className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center">
-              <Home size={18} className="text-white" />
+            <div className="w-8 h-8 flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/d1d2b832-5a62-4fd1-8151-ecc99e184843.png" 
+                alt="Altakathuf Logo" 
+                className="w-full h-full object-contain"
+              />
             </div>
-            <span>ALTAKATHUF</span>
+            <span>{t('siteName')}</span>
           </div>
           
           {/* Desktop Navigation */}
