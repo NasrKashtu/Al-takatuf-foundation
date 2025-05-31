@@ -69,14 +69,62 @@
 @layer base {
   * {
     @apply border-border transition-colors duration-300;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
   }
   
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Fix for full width layout */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      max-width: 1024px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container {
+      max-width: 1280px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container {
+      max-width: 1536px;
+    }
   }
 
   /* Ensure dark mode applies to all elements */
@@ -99,6 +147,17 @@
 
   .dark .bg-gray-50 {
     @apply bg-gray-800;
+  }
+
+  /* Fix for Mapbox CSS */
+  .mapboxgl-map {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .mapboxgl-canvas {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 
@@ -158,6 +217,11 @@
     direction: rtl;
   }
 
+  /* Prevent horizontal scrolling */
+  .overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -178,5 +242,31 @@
       opacity: 1;
       transform: translateX(0);
     }
+  }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
   }
 }

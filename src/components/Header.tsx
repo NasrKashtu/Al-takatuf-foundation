@@ -1,16 +1,50 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import LanguageThemeSwitcher from './LanguageThemeSwitcher';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const { t, language } = useApp();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'services', 'blog', 'contact'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+          
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
+  };
+
+  const getButtonClass = (section: string) => {
+    const baseClass = "px-4 py-2 rounded-full transition-colors duration-300";
+    if (activeSection === section) {
+      return `${baseClass} text-white bg-teal-600`;
+    }
+    return `${baseClass} text-gray-600 dark:text-gray-300 hover:text-teal-600`;
   };
 
   return (
@@ -35,31 +69,31 @@ const Header = () => {
           <nav className="hidden md:flex space-x-8 items-center">
             <button 
               onClick={() => scrollToSection('home')}
-              className="text-white bg-teal-600 px-4 py-2 rounded-full hover:bg-teal-700 transition-colors duration-300"
+              className={getButtonClass('home')}
             >
               {t('home')}
             </button>
             <button 
               onClick={() => scrollToSection('about')}
-              className="text-gray-600 dark:text-gray-300 hover:text-teal-600 transition-colors duration-300"
+              className={getButtonClass('about')}
             >
               {t('about')}
             </button>
             <button 
               onClick={() => scrollToSection('services')}
-              className="text-gray-600 dark:text-gray-300 hover:text-teal-600 transition-colors duration-300"
+              className={getButtonClass('services')}
             >
               {t('services')}
             </button>
             <button 
               onClick={() => scrollToSection('blog')}
-              className="text-gray-600 dark:text-gray-300 hover:text-teal-600 transition-colors duration-300"
+              className={getButtonClass('blog')}
             >
               {t('blog')}
             </button>
             <button 
               onClick={() => scrollToSection('contact')}
-              className="text-gray-600 dark:text-gray-300 hover:text-teal-600 transition-colors duration-300"
+              className={getButtonClass('contact')}
             >
               {t('contact')}
             </button>
@@ -84,31 +118,31 @@ const Header = () => {
             <div className="flex flex-col space-y-4">
               <button 
                 onClick={() => scrollToSection('home')}
-                className="text-white bg-teal-600 px-4 py-2 rounded-full text-center"
+                className={`${getButtonClass('home')} text-center`}
               >
                 {t('home')}
               </button>
               <button 
                 onClick={() => scrollToSection('about')}
-                className="text-gray-600 dark:text-gray-300 px-4 py-2 text-center"
+                className={`${getButtonClass('about')} text-center`}
               >
                 {t('about')}
               </button>
               <button 
                 onClick={() => scrollToSection('services')}
-                className="text-gray-600 dark:text-gray-300 px-4 py-2 text-center"
+                className={`${getButtonClass('services')} text-center`}
               >
                 {t('services')}
               </button>
               <button 
                 onClick={() => scrollToSection('blog')}
-                className="text-gray-600 dark:text-gray-300 px-4 py-2 text-center"
+                className={`${getButtonClass('blog')} text-center`}
               >
                 {t('blog')}
               </button>
               <button 
                 onClick={() => scrollToSection('contact')}
-                className="text-gray-600 dark:text-gray-300 px-4 py-2 text-center"
+                className={`${getButtonClass('contact')} text-center`}
               >
                 {t('contact')}
               </button>
