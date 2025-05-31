@@ -27,19 +27,19 @@ const ImageSlider = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000); // Change slide every 4 seconds
+    }, 4000);
 
     return () => clearInterval(timer);
   }, [slides.length]);
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-800">
+    <section className="py-8 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4 animate-fade-in">
+        <div className={`text-center mb-8 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+          <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4 animate-fade-in text-center">
             {t('sliderTitle')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in text-center">
             {t('sliderDesc')}
           </p>
         </div>
@@ -56,12 +56,12 @@ const ImageSlider = () => {
                     <img 
                       src={slide.image} 
                       alt={slide.title}
-                      className="w-full h-96 object-cover"
+                      className="w-full h-80 object-cover"
                     />
                     <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                       <div className={`text-center text-white p-6 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                        <h3 className="text-3xl font-bold mb-4">{slide.title}</h3>
-                        <p className="text-lg max-w-2xl mx-auto">{slide.description}</p>
+                        <h3 className="text-3xl font-bold mb-4 text-center">{slide.title}</h3>
+                        <p className="text-lg max-w-2xl mx-auto text-center">{slide.description}</p>
                       </div>
                     </div>
                   </div>
@@ -70,8 +70,7 @@ const ImageSlider = () => {
             </div>
           </div>
 
-          {/* Slide indicators */}
-          <div className="flex justify-center mt-6 space-x-2">
+          <div className="flex justify-center mt-4 space-x-2">
             {slides.map((_, index) => (
               <button
                 key={index}

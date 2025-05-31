@@ -17,7 +17,7 @@ const translations = {
   en: {
     // Site name
     siteName: "ALTAKATHUF",
-    // ... keep existing code (all current translations)
+    // ... keep existing code (basic translations)
     welcome: "Welcome to Altakathif",
     description: "Altakathif is a personal organization dedicated to providing unique solutions for personal growth and development. We strive to empower individuals to reach their full potential and achieve their goals.",
     services: "Services",
@@ -70,22 +70,42 @@ const translations = {
     mobileHealthUnit: "Mobile Health Unit",
     altakathufCenter: "Al-Takathuf Center",
     variousNeighborhoods: "Various Neighborhoods",
-    // New sections
+    // New sections - FAQ, Testimonials, About, Footer
     aboutUs: "About Us",
     aboutUsTitle: "Empowering Communities Through Action",
-    aboutUsDesc: "Altakathuf is dedicated to creating positive change in communities through education, empowerment, and sustainable development programs.",
+    aboutUsDesc: "Altakathif is dedicated to creating positive change in communities through education, empowerment, and sustainable development programs.",
     ourMission: "Our Mission",
     ourVision: "Our Vision",
     missionText: "To empower individuals and communities through innovative programs that foster growth, education, and sustainable development.",
     visionText: "A world where every individual has the opportunity to reach their full potential and contribute meaningfully to society.",
     faq: "Frequently Asked Questions",
     faqDesc: "Find answers to common questions about our programs and services.",
+    faqQ1: "What services do you offer?",
+    faqA1: "We offer personalized coaching programs, goal setting workshops, and mindfulness retreats to help individuals achieve their personal goals.",
+    faqQ2: "How can personalized coaching help me?",
+    faqA2: "Our personalized coaching approach helps you identify your strengths, overcome obstacles, and develop strategies to achieve your specific goals.",
+    faqQ3: "What sets Altakathif apart from other personal development organizations?",
+    faqA3: "Our unique combination of traditional wisdom and modern techniques, along with our community-focused approach, makes us stand out in the field.",
     testimonials: "What People Say",
     testimonialsDesc: "Hear from those who have experienced our programs firsthand.",
+    testimonialText: "Altakathif has truly transformed my life. Their personalized approach and innovative solutions have helped me overcome obstacles and achieve success like never before.",
+    testimonialAuthor: "John Doe",
     getInTouch: "Get in Touch",
     ourLocation: "Our Location",
     followUs: "Follow Us",
     allRightsReserved: "All rights reserved.",
+    // Footer content
+    footerContactInfo: "Contact Information",
+    footerPhone: "Phone: +1 (555) 123-4567",
+    footerEmail: "Email: info@altakathuf.org",
+    footerAddress: "Address: 123 Development Street, Community City, CC 12345",
+    footerAbout: "About Altakathuf",
+    footerAboutText: "Dedicated to empowering individuals and communities through innovative programs and sustainable development initiatives.",
+    footerServices: "Our Services",
+    footerCoaching: "Personal Coaching",
+    footerWorkshops: "Workshops",
+    footerCommunity: "Community Programs",
+    copyright: "© 2025 Altakathuf. All rights reserved.",
     // Slider content
     sliderTitle: "Our Impact in Action",
     sliderDesc: "Discover how we're making a difference in communities through our various programs and initiatives.",
@@ -99,7 +119,7 @@ const translations = {
   ar: {
     // Site name
     siteName: "التكاثف",
-    // ... keep existing code (all current translations)
+    // ... keep existing code (basic translations)
     welcome: "مرحباً بكم في التكاثف",
     description: "التكاثف هو منظمة شخصية مخصصة لتقديم حلول فريدة للنمو والتطوير الشخصي. نحن نسعى لتمكين الأفراد من الوصول إلى إمكاناتهم الكاملة وتحقيق أهدافهم.",
     services: "الخدمات",
@@ -152,7 +172,7 @@ const translations = {
     mobileHealthUnit: "وحدة الصحة المتنقلة",
     altakathufCenter: "مركز التكاثف",
     variousNeighborhoods: "أحياء متنوعة",
-    // New sections
+    // New sections - FAQ, Testimonials, About, Footer
     aboutUs: "من نحن",
     aboutUsTitle: "تمكين المجتمعات من خلال العمل",
     aboutUsDesc: "التكاثف مكرس لإحداث تغيير إيجابي في المجتمعات من خلال برامج التعليم والتمكين والتنمية المستدامة.",
@@ -162,12 +182,32 @@ const translations = {
     visionText: "عالم حيث كل فرد لديه الفرصة للوصول إلى إمكاناته الكاملة والمساهمة بشكل مفيد في المجتمع.",
     faq: "الأسئلة الشائعة",
     faqDesc: "العثور على إجابات للأسئلة الشائعة حول برامجنا وخدماتنا.",
+    faqQ1: "ما الخدمات التي تقدمونها؟",
+    faqA1: "نقدم برامج تدريب شخصية وورش وضع الأهداف وخلوات اليقظة الذهنية لمساعدة الأفراد على تحقيق أهدافهم الشخصية.",
+    faqQ2: "كيف يمكن للتدريب الشخصي أن يساعدني؟",
+    faqA2: "نهجنا في التدريب الشخصي يساعدك على تحديد نقاط قوتك والتغلب على العقبات ووضع استراتيجيات لتحقيق أهدافك المحددة.",
+    faqQ3: "ما الذي يميز التكاثف عن منظمات التطوير الشخصي الأخرى؟",
+    faqA3: "مزيجنا الفريد من الحكمة التقليدية والتقنيات الحديثة، إلى جانب نهجنا المركز على المجتمع، يجعلنا نبرز في هذا المجال.",
     testimonials: "ماذا يقول الناس",
     testimonialsDesc: "اسمع من أولئك الذين جربوا برامجنا بأنفسهم.",
+    testimonialText: "لقد غيّر التكاثف حياتي حقاً. نهجهم الشخصي وحلولهم المبتكرة ساعدوني على التغلب على العقبات وتحقيق النجاح كما لم أحققه من قبل.",
+    testimonialAuthor: "جون دو",
     getInTouch: "تواصل معنا",
     ourLocation: "موقعنا",
     followUs: "تابعنا",
     allRightsReserved: "جميع الحقوق محفوظة.",
+    // Footer content
+    footerContactInfo: "معلومات الاتصال",
+    footerPhone: "الهاتف: +1 (555) 123-4567",
+    footerEmail: "البريد الإلكتروني: info@altakathuf.org",
+    footerAddress: "العنوان: 123 شارع التنمية، مدينة المجتمع، CC 12345",
+    footerAbout: "حول التكاثف",
+    footerAboutText: "مكرس لتمكين الأفراد والمجتمعات من خلال البرامج المبتكرة ومبادرات التنمية المستدامة.",
+    footerServices: "خدماتنا",
+    footerCoaching: "التدريب الشخصي",
+    footerWorkshops: "ورش العمل",
+    footerCommunity: "برامج المجتمع",
+    copyright: "© 2025 التكاثف. جميع الحقوق محفوظة.",
     // Slider content
     sliderTitle: "تأثيرنا في العمل",
     sliderDesc: "اكتشف كيف نحدث فرقاً في المجتمعات من خلال برامجنا ومبادراتنا المختلفة.",

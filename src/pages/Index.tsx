@@ -1,8 +1,8 @@
 
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
-import ServicesSection from '@/components/ServicesSection';
 import ImageSlider from '@/components/ImageSlider';
+import ServicesSection from '@/components/ServicesSection';
 import BlogSection from '@/components/BlogSection';
 import FAQSection from '@/components/FAQSection';
 import TestimonialSection from '@/components/TestimonialSection';
@@ -15,8 +15,8 @@ const Index = () => {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Header />
       <HeroSection />
-      <ServicesSection />
       <ImageSlider />
+      <ServicesSection />
       <BlogSection />
       <FAQSection />
       <TestimonialSection />
