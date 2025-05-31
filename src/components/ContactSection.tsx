@@ -1,8 +1,12 @@
 
 import { useState } from 'react';
 import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { useApp } from '@/contexts/AppContext';
+import InteractiveMap from './InteractiveMap';
+import { toast } from 'sonner';
 
 const ContactSection = () => {
+  const { t, language } = useApp();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,7 +16,16 @@ const ContactSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Handle form submission here
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      message: ''
+    });
+    
+    // Show success message
+    toast.success(language === 'ar' ? 'تم إرسال الرسالة بنجاح!' : 'Message sent successfully!');
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -23,13 +36,13 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-16 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-4 animate-fade-in">
-          Contact us
+        <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-4 animate-fade-in">
+          {t('contactUs')}
         </h2>
-        <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-          Reach out to us today to start your journey towards personal growth and empowerment.
+        <p className={`text-center text-gray-600 dark:text-gray-300 mb-16 max-w-2xl mx-auto ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+          {t('contactDesc')}
         </p>
         
         <div className="grid lg:grid-cols-2 gap-12">
@@ -37,8 +50,8 @@ const ContactSection = () => {
           <div className="animate-fade-in">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
-                  Name *
+                <label htmlFor="name" className={`block text-gray-700 dark:text-gray-300 font-medium mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                  {t('name')} *
                 </label>
                 <input
                   type="text"
@@ -46,14 +59,14 @@ const ContactSection = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all duration-300"
+                  className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${language === 'ar' ? 'text-right' : 'text-left'}`}
                   required
                 />
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
-                  Email address *
+                <label htmlFor="email" className={`block text-gray-700 dark:text-gray-300 font-medium mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                  {t('email')} *
                 </label>
                 <input
                   type="email"
@@ -61,14 +74,14 @@ const ContactSection = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all duration-300"
+                  className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all duration-300 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${language === 'ar' ? 'text-right' : 'text-left'}`}
                   required
                 />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
-                  Message *
+                <label htmlFor="message" className={`block text-gray-700 dark:text-gray-300 font-medium mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                  {t('message')} *
                 </label>
                 <textarea
                   id="message"
@@ -76,27 +89,25 @@ const ContactSection = () => {
                   rows={6}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all duration-300 resize-none"
+                  className={`w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all duration-300 resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${language === 'ar' ? 'text-right' : 'text-left'}`}
                   required
                 ></textarea>
               </div>
               
               <button
                 type="submit"
-                className="bg-teal-600 text-white px-8 py-3 rounded-lg hover:bg-teal-700 transition-colors duration-300 font-medium hover-scale"
+                className={`bg-teal-600 text-white px-8 py-3 rounded-lg hover:bg-teal-700 transition-colors duration-300 font-medium hover-scale ${language === 'ar' ? 'float-right' : 'float-left'}`}
               >
-                Submit form
+                {t('submitForm')}
               </button>
             </form>
           </div>
           
           {/* Map and Social Media */}
           <div className="animate-fade-in">
-            <div className="bg-gradient-to-br from-blue-100 to-blue-200 h-64 rounded-lg mb-6 flex items-center justify-center">
-              <span className="text-blue-600 text-lg font-medium">Interactive Map</span>
-            </div>
+            <InteractiveMap />
             
-            <div className="flex space-x-4 justify-center">
+            <div className={`flex space-x-4 justify-center mt-6 ${language === 'ar' ? 'space-x-reverse' : ''}`}>
               <a href="#" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover-scale">
                 <Facebook size={20} />
               </a>

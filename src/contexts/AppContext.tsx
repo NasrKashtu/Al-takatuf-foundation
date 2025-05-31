@@ -26,7 +26,48 @@ const translations = {
     contact: "CONTACT",
     readMore: "Read More",
     viewAllActivities: "View All Activities",
-    moreInfo: "More info"
+    moreInfo: "More info",
+    // Services translations
+    personalizedCoaching: "Personalized Coaching Programs",
+    personalizedCoachingDesc: "Unlock your full potential with personalized coaching programs. Achieve success like never before.",
+    goalSetting: "Goal Setting Workshops",
+    goalSettingDesc: "Set and achieve your goals with our goal setting workshops. Transform your life today.",
+    mindfulness: "Mindfulness Retreats",
+    mindfulnessDesc: "Recharge and reconnect with our mindfulness retreats. Prioritize self-care and well-being.",
+    // Blog/Activities translations
+    youthEducation: "Youth Education Workshop - Digital Skills Training",
+    youthEducationDesc: "Our latest workshop helped 50+ young people develop essential computer and internet skills for better employment opportunities.",
+    communityCleanup: "Community Clean-up Drive",
+    communityCleanupDesc: "Volunteers from across the city joined us for a neighborhood beautification project, cleaning parks and planting trees.",
+    womenEmpowerment: "Women's Empowerment Seminar",
+    womenEmpowermentDesc: "Inspiring session with successful women entrepreneurs sharing their journey and mentoring local women to start their own businesses.",
+    healthAwareness: "Health Awareness Campaign",
+    healthAwarenessDesc: "Free health checkups and awareness sessions about preventive healthcare reached over 200 community members.",
+    childrenArt: "Children's Art & Craft Workshop",
+    childrenArtDesc: "Creative sessions for underprivileged children, providing art supplies and teaching various craft techniques to boost creativity.",
+    foodDistribution: "Food Distribution Drive",
+    foodDistributionDesc: "Monthly food distribution program serving 150+ families in need, providing essential groceries and fresh produce.",
+    // Contact form
+    contactUs: "Contact us",
+    contactDesc: "Reach out to us today to start your journey towards personal growth and empowerment.",
+    name: "Name",
+    email: "Email address",
+    message: "Message",
+    submitForm: "Submit form",
+    // Categories
+    education: "Education",
+    environment: "Environment",
+    empowerment: "Empowerment",
+    health: "Health",
+    children: "Children",
+    relief: "Relief",
+    // Locations
+    communityCenter: "Community Center, Downtown",
+    centralPark: "Central Park Area",
+    businessHub: "Business Hub",
+    mobileHealthUnit: "Mobile Health Unit",
+    altakathufCenter: "Al-Takathuf Center",
+    variousNeighborhoods: "Various Neighborhoods"
   },
   ar: {
     welcome: "مرحباً بكم في التكاثف",
@@ -39,7 +80,48 @@ const translations = {
     contact: "اتصل بنا",
     readMore: "اقرأ المزيد",
     viewAllActivities: "عرض جميع الأنشطة",
-    moreInfo: "معلومات أكثر"
+    moreInfo: "معلومات أكثر",
+    // Services translations
+    personalizedCoaching: "برامج التدريب الشخصي",
+    personalizedCoachingDesc: "اكتشف إمكاناتك الكاملة مع برامج التدريب الشخصي. حقق النجاح كما لم تحققه من قبل.",
+    goalSetting: "ورش وضع الأهداف",
+    goalSettingDesc: "ضع أهدافك وحققها مع ورش وضع الأهداف. غيّر حياتك اليوم.",
+    mindfulness: "خلوات اليقظة الذهنية",
+    mindfulnessDesc: "اشحن طاقتك وتواصل مع ذاتك مع خلوات اليقظة الذهنية. اعطِ الأولوية للعناية بالذات والرفاهية.",
+    // Blog/Activities translations
+    youthEducation: "ورشة تعليم الشباب - تدريب المهارات الرقمية",
+    youthEducationDesc: "ساعدت ورشة العمل الأخيرة أكثر من 50 شاباً على تطوير مهارات الكمبيوتر والإنترنت الأساسية لفرص عمل أفضل.",
+    communityCleanup: "حملة تنظيف المجتمع",
+    communityCleanupDesc: "انضم إلينا متطوعون من جميع أنحاء المدينة في مشروع تجميل الأحياء وتنظيف الحدائق وزراعة الأشجار.",
+    womenEmpowerment: "ندوة تمكين المرأة",
+    womenEmpowermentDesc: "جلسة ملهمة مع رائدات أعمال ناجحات يشاركن رحلتهن ويوجهن النساء المحليات لبدء أعمالهن الخاصة.",
+    healthAwareness: "حملة التوعية الصحية",
+    healthAwarenessDesc: "فحوصات صحية مجانية وجلسات توعية حول الرعاية الصحية الوقائية وصلت إلى أكثر من 200 فرد من المجتمع.",
+    childrenArt: "ورشة الفنون والحرف للأطفال",
+    childrenArtDesc: "جلسات إبداعية للأطفال المحرومين، توفر مواد فنية وتعلم تقنيات حرفية متنوعة لتعزيز الإبداع.",
+    foodDistribution: "حملة توزيع الطعام",
+    foodDistributionDesc: "برنامج توزيع طعام شهري يخدم أكثر من 150 عائلة محتاجة، يوفر البقالة الأساسية والمنتجات الطازجة.",
+    // Contact form
+    contactUs: "اتصل بنا",
+    contactDesc: "تواصل معنا اليوم لبدء رحلتك نحو النمو الشخصي والتمكين.",
+    name: "الاسم",
+    email: "عنوان البريد الإلكتروني",
+    message: "الرسالة",
+    submitForm: "إرسال النموذج",
+    // Categories
+    education: "التعليم",
+    environment: "البيئة",
+    empowerment: "التمكين",
+    health: "الصحة",
+    children: "الأطفال",
+    relief: "الإغاثة",
+    // Locations
+    communityCenter: "المركز المجتمعي، وسط المدينة",
+    centralPark: "منطقة الحديقة المركزية",
+    businessHub: "مركز الأعمال",
+    mobileHealthUnit: "وحدة الصحة المتنقلة",
+    altakathufCenter: "مركز التكاثف",
+    variousNeighborhoods: "أحياء متنوعة"
   }
 };
 
