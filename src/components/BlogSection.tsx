@@ -1,8 +1,10 @@
-
 import { Calendar, Video, Image, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useApp } from '@/contexts/AppContext';
 
 const BlogSection = () => {
+  const { t } = useApp();
+  
   const activities = [
     {
       id: 1,
@@ -106,14 +108,14 @@ const BlogSection = () => {
   };
 
   return (
-    <section id="blog" className="py-20 bg-gray-50">
+    <section id="blog" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
-            Our Activities & Impact
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-100 mb-4 animate-fade-in">
+            {t('blog')}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto animate-fade-in">
-            See our foundation in action - from educational workshops to community outreach programs
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in">
+            {t('blogDescription')}
           </p>
         </div>
 
@@ -121,7 +123,7 @@ const BlogSection = () => {
           {activities.map((activity, index) => (
             <Card 
               key={activity.id} 
-              className="hover-scale bg-white shadow-lg border-0 overflow-hidden animate-fade-in group"
+              className="hover-scale bg-white dark:bg-gray-700 shadow-lg border-0 overflow-hidden animate-fade-in group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="relative aspect-video overflow-hidden">
@@ -148,26 +150,26 @@ const BlogSection = () => {
                   <span className={`text-sm font-medium px-3 py-1 rounded-full border ${getCategoryColor(activity.category)}`}>
                     {activity.category}
                   </span>
-                  <div className="flex items-center text-gray-500 text-sm">
+                  <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
                     <Calendar size={14} className="mr-1" />
                     {formatDate(activity.date)}
                   </div>
                 </div>
-                <CardTitle className="text-lg font-bold text-gray-800 line-clamp-2 group-hover:text-teal-600 transition-colors">
+                <CardTitle className="text-lg font-bold text-gray-800 dark:text-gray-100 line-clamp-2 group-hover:text-teal-600 transition-colors">
                   {activity.title}
                 </CardTitle>
               </CardHeader>
               
               <CardContent className="pt-0">
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
                   {activity.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                  <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-600 px-2 py-1 rounded">
                     📍 {activity.location}
                   </span>
                   <button className="text-teal-600 hover:text-teal-700 font-medium text-sm flex items-center transition-colors group">
-                    Read More
+                    {t('readMore')}
                     <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                   </button>
                 </div>
@@ -178,7 +180,7 @@ const BlogSection = () => {
 
         <div className="text-center">
           <button className="bg-teal-600 text-white px-8 py-3 rounded-full hover:bg-teal-700 transition-colors duration-300 font-medium animate-fade-in">
-            View All Activities
+            {t('viewAllActivities')}
           </button>
         </div>
       </div>
