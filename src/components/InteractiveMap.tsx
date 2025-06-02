@@ -7,7 +7,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const InteractiveMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [zoom, setZoom] = useState(2);
+  const [zoom, setZoom] = useState(12);
   const [mapboxToken, setMapboxToken] = useState('');
   const [showTokenInput, setShowTokenInput] = useState(true);
 
@@ -16,26 +16,21 @@ const InteractiveMap = () => {
 
     mapboxgl.accessToken = mapboxToken;
     
+    // Coordinates for Umm Al Aranib, Libya
+    const ummAlAranibCoords = [14.4298, 32.9042];
+    
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [0, 20],
+      center: ummAlAranibCoords,
       zoom: zoom,
     });
 
-    // Add markers for organization locations
-    const locations = [
-      { lng: -74.006, lat: 40.7128, name: 'New York Office' },
-      { lng: 2.3522, lat: 48.8566, name: 'Paris Office' },
-      { lng: 139.6917, lat: 35.6895, name: 'Tokyo Office' }
-    ];
-
-    locations.forEach(location => {
-      new mapboxgl.Marker({ color: '#dc2626' })
-        .setLngLat([location.lng, location.lat])
-        .setPopup(new mapboxgl.Popup().setHTML(`<p>${location.name}</p>`))
-        .addTo(map.current!);
-    });
+    // Add marker for Umm Al Aranib location
+    new mapboxgl.Marker({ color: '#dc2626' })
+      .setLngLat(ummAlAranibCoords)
+      .setPopup(new mapboxgl.Popup().setHTML(`<p>Umm Al Aranib, Libya</p>`))
+      .addTo(map.current!);
 
     // Add navigation controls
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
@@ -124,7 +119,7 @@ const InteractiveMap = () => {
       <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-800/90 p-3 rounded-lg text-sm">
         <div className="flex items-center gap-2 mb-1">
           <div className="w-3 h-3 bg-red-600 rounded-full"></div>
-          <span className="text-gray-700 dark:text-gray-300">Our Locations</span>
+          <span className="text-gray-700 dark:text-gray-300">Our Location</span>
         </div>
         <div className="text-xs text-gray-500 dark:text-gray-400">Zoom: {zoom}</div>
       </div>

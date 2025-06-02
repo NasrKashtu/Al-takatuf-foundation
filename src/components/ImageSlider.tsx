@@ -33,19 +33,19 @@ const ImageSlider = () => {
   }, [slides.length]);
 
   return (
-    <section className="py-8 bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-4">
-        <div className={`text-center mb-8 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-          <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4 animate-fade-in text-center">
+    <section className="py-12 bg-gray-50 dark:bg-gray-800">
+      <div className="container mx-auto px-8">
+        <div className={`text-center mb-12 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+          <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6 animate-fade-in text-center">
             {t('sliderTitle')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in text-center">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto animate-fade-in text-center">
             {t('sliderDesc')}
           </p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
-          <div className="overflow-hidden rounded-lg shadow-lg">
+        <div className="relative max-w-6xl mx-auto px-4">
+          <div className="overflow-hidden rounded-xl shadow-2xl">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -56,12 +56,12 @@ const ImageSlider = () => {
                     <img 
                       src={slide.image} 
                       alt={slide.title}
-                      className="w-full h-80 object-cover"
+                      className="w-full h-96 object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                      <div className={`text-center text-white p-6 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                        <h3 className="text-3xl font-bold mb-4 text-center">{slide.title}</h3>
-                        <p className="text-lg max-w-2xl mx-auto text-center">{slide.description}</p>
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                      <div className={`text-center text-white p-8 max-w-4xl ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+                        <h3 className="text-4xl font-bold mb-6 text-center">{slide.title}</h3>
+                        <p className="text-xl leading-relaxed max-w-3xl mx-auto text-center">{slide.description}</p>
                       </div>
                     </div>
                   </div>
@@ -70,15 +70,15 @@ const ImageSlider = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-4 space-x-2">
+          <div className="flex justify-center mt-6 space-x-3">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                className={`w-4 h-4 rounded-full transition-all duration-300 ${
                   currentSlide === index 
-                    ? 'bg-teal-600' 
-                    : 'bg-gray-300 dark:bg-gray-600'
+                    ? 'bg-teal-600 scale-110' 
+                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                 }`}
               />
             ))}
