@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { ZoomIn, ZoomOut } from 'lucide-react';
 import mapboxgl from 'mapbox-gl';
@@ -16,8 +15,8 @@ const InteractiveMap = () => {
 
     mapboxgl.accessToken = mapboxToken;
     
-    // Coordinates for Umm Al Aranib, Libya
-    const ummAlAranibCoords = [14.4298, 32.9042];
+    // Coordinates for Umm Al Aranib, Libya - properly typed as tuple
+    const ummAlAranibCoords: [number, number] = [14.4298, 32.9042];
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
