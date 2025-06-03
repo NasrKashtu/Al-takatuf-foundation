@@ -16,8 +16,8 @@ L.Icon.Default.mergeOptions({
 const InteractiveMap = () => {
   const [map, setMap] = useState<L.Map | null>(null);
   
-  // Coordinates for Umm Al Aranib, Libya
-  const ummAlAranibCoords: [number, number] = [32.9042, 14.4298]; // Note: Leaflet uses [lat, lng]
+  // Updated coordinates for the new location
+  const ourLocationCoords: [number, number] = [32.8872, 13.1913]; // Note: Leaflet uses [lat, lng]
   
   const handleZoomIn = () => {
     if (map) {
@@ -34,7 +34,7 @@ const InteractiveMap = () => {
   return (
     <div className="relative bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 h-64 rounded-lg overflow-hidden">
       <MapContainer
-        center={ummAlAranibCoords}
+        center={ourLocationCoords}
         zoom={12}
         className="w-full h-full"
         ref={setMap}
@@ -43,9 +43,9 @@ const InteractiveMap = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={ummAlAranibCoords}>
+        <Marker position={ourLocationCoords}>
           <Popup>
-            <span>Umm Al Aranib, Libya</span>
+            <span>Our Location</span>
           </Popup>
         </Marker>
       </MapContainer>
