@@ -16,8 +16,8 @@ L.Icon.Default.mergeOptions({
 const InteractiveMap = () => {
   const [map, setMap] = useState<L.Map | null>(null);
   
-  // Updated coordinates for the new location
-  const ourLocationCoords: [number, number] = [32.8872, 13.1913]; // Note: Leaflet uses [lat, lng]
+  // Updated coordinates for the selected location from the image
+  const ourLocationCoords: [number, number] = [32.8951, 13.1866]; // Note: Leaflet uses [lat, lng]
   
   const handleZoomIn = () => {
     if (map) {
