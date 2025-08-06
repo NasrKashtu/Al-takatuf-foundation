@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Send } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import InteractiveMap from './InteractiveMap';
 import { toast } from 'sonner';
@@ -110,6 +110,15 @@ const ContactSection = () => {
             <div className={`flex space-x-4 justify-center mt-6 ${language === 'ar' ? 'space-x-reverse' : ''}`}>
               <a href="https://www.facebook.com/profile.php?id=61574523478564" target="_blank" rel="noopener noreferrer" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover:scale-105">
                 <Facebook size={20} />
+              </a>
+              <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </a>
+              <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover:scale-105">
+                <Linkedin size={20} />
+              </a>
+              <a href="https://t.me/yourprofile" target="_blank" rel="noopener noreferrer" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover:scale-105">
+                <Send size={20} />
               </a>
             </div>
           </div>
