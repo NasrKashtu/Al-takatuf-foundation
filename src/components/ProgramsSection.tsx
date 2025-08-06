@@ -8,19 +8,19 @@ const ProgramsSection = () => {
       title: t('program1Title'),
       description: t('program1Desc'),
       buttonText: t('moreInfo'),
-      image: "/public/images/BlogSection/Screenshot 2025-08-04 013217.png"
+      image: "/images/BlogSection/Screenshot 2025-08-04 013217.png"
     },
     {
       title: t('program2Title'),
       description: t('program2Desc'),
       buttonText: t('moreInfo'),
-      image: "/public/images/BlogSection/photo_2025-07-31_17-22-17.jpg"
+      image: "/images/BlogSection/photo_2025-07-31_17-22-17.jpg"
     },
     {
       title: t('program3Title'),
       description: t('program3Desc'),
       buttonText: t('moreInfo'),
-      image: "/public/images/BlogSection/Screenshot 2025-08-03 234116.png"
+      image: "/images/BlogSection/Screenshot 2025-08-03 234116.png"
     }
   ];
 

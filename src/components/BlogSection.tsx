@@ -15,7 +15,7 @@ const BlogSection = () => {
       category: t('empowerment'),
       media: {
         type: "image",
-        url: "/public/images/BlogSection/Screenshot 2025-08-04 013217.png",
+        url: "/images/BlogSection/Screenshot 2025-08-04 013217.png",
         alt: "Students learning computer skills"
       },
       location: t('communityCenter'),
@@ -29,7 +29,7 @@ const BlogSection = () => {
       category: t('environment'),
       media: {
         type: "video",
-        url: "/public/images/BlogSection/photo_2025-07-31_17-22-17.jpg",
+        url: "/images/BlogSection/photo_2025-07-31_17-22-17.jpg",
         alt: "Community volunteers cleaning"
       },
       location: t('centralPark'),
@@ -43,7 +43,7 @@ const BlogSection = () => {
       category: t('relief'),
       media: {
         type: "image",
-        url: "/public/images/BlogSection/Screenshot 2025-08-03 232806.png",
+        url: "/images/BlogSection/Screenshot 2025-08-03 232806.png",
         alt: "Women entrepreneurs speaking"
       },
       location: t('Umm al Aranib'),
@@ -57,7 +57,7 @@ const BlogSection = () => {
       category: t('empowerment'),
       media: {
         type: "video",
-        url: "/public/images/BlogSection/Screenshot 2025-08-03 234116.png",
+        url: "/images/BlogSection/Screenshot 2025-08-03 234116.png",
         alt: "Health checkup camp"
       },
       location: t('Umm al Aranib'),
@@ -71,7 +71,7 @@ const BlogSection = () => {
       category: t('empowerment'),
       media: {
         type: "image",
-        url: "/public/images/BlogSection/Screenshot 2025-08-03 235320.png",
+        url: "/images/BlogSection/Screenshot 2025-08-03 235320.png",
         alt: "Children doing arts and crafts"
       },
       location: t('altakathufCenter'),
@@ -85,7 +85,7 @@ const BlogSection = () => {
       category: t('relief'),
       media: {
         type: "video",
-        url: "/public/images/BlogSection/Screenshot 2025-08-03 231716.png",
+        url: "/images/BlogSection/Screenshot 2025-08-03 231716.png",
         alt: "Food distribution activity"
       },
       location: t('variousNeighborhoods'),
