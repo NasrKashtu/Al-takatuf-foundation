@@ -119,8 +119,8 @@ const translations = {
     program1Desc: "We provide educational programs and workshops to empower the youth in our communities, fostering skill development and creating opportunities for a brighter future.",
     program2Title: "Community Cleanup Drives",
     program2Desc: "We organize community cleanup drives to promote environmental awareness and create a cleaner, healthier, and more beautiful living space for everyone.",
-    program3Title: "Women Empowerment Initiatives",
-    program3Desc: "We are dedicated to empowering women through various initiatives, providing them with the resources and support needed to thrive and lead."
+    program3Title: "Awareness Campaigns",
+    program3Desc: "Field awareness campaigns to urge citizens to receive their voter cards for the 2025 municipal elections."
   },
   ar: {
     // Site name

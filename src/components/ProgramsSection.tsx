@@ -20,7 +20,7 @@ const ProgramsSection = () => {
       title: t('program3Title'),
       description: t('program3Desc'),
       buttonText: t('moreInfo'),
-      image: "/public/images/Programs/Screenshot 2025-08-05 173518.png"
+      image: "/public/images/BlogSection/Screenshot 2025-08-03 234116.png"
     }
   ];
 
