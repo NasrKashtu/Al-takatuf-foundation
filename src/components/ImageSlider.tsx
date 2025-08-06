@@ -1,45 +1,50 @@
-
 import { useState, useEffect } from 'react';
 import { useApp } from '@/contexts/AppContext';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const slideData = [
+  {
+    image: "/images/Slider/Screenshot 2025-07-31 143243.png",
+    titleKey: 'slide1Title',
+    descriptionKey: 'slide1Desc'
+  },
+  {
+    image: "/images/Slider/Screenshot 2025-08-04 012641.png",
+    titleKey: 'slide2Title',
+    descriptionKey: 'slide2Desc'
+  },
+  {
+    image: "/images/Slider/Screenshot 2025-07-31 142643.png",
+    titleKey: 'slide3Title',
+    descriptionKey: 'slide3Desc'
+  }
+];
 
 const ImageSlider = () => {
   const { t, language } = useApp();
   const [currentSlide, setCurrentSlide] = useState(0);
-  
-  const slides = [
-    {
-      image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&h=400&fit=crop",
-      title: t('slide1Title'),
-      description: t('slide1Desc')
-    },
-    {
-      image: "https://images.unsplash.com/photo-1559027006-b4923fa90207?w=800&h=400&fit=crop",
-      title: t('slide2Title'),
-      description: t('slide2Desc')
-    },
-    {
-      image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=400&fit=crop",
-      title: t('slide3Title'),
-      description: t('slide3Desc')
-    }
-  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slideData.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slideData.length) % slideData.length);
+  };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
-
+    const timer = setInterval(nextSlide, 4000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, []);
 
   return (
-    <section className="py-12 bg-gray-50 dark:bg-gray-800">
+    <section dir={language === 'ar' ? 'rtl' : 'ltr'} className="py-12 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-8">
         <div className={`text-center mb-12 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-          <h2 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6 animate-fade-in text-center">
+          <h2 dir={language === 'ar' ? 'rtl' : 'ltr'} className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6 animate-fade-in text-center">
             {t('sliderTitle')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto animate-fade-in text-center">
+          <p dir={language === 'ar' ? 'rtl' : 'ltr'} className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto animate-fade-in text-center">
             {t('sliderDesc')}
           </p>
         </div>
@@ -48,20 +53,24 @@ const ImageSlider = () => {
           <div className="overflow-hidden rounded-xl shadow-2xl">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              style={{ 
+                transform: language === 'ar' 
+                  ? `translateX(${currentSlide * 100}%)` 
+                  : `translateX(-${currentSlide * 100}%)` 
+              }}
             >
-              {slides.map((slide, index) => (
+              {slideData.map((slide, index) => (
                 <div key={index} className="w-full flex-shrink-0">
                   <div className="relative">
                     <img 
-                      src={slide.image} 
-                      alt={slide.title}
-                      className="w-full h-96 object-cover"
+                      src={slide.image}
+                      alt={t(slide.titleKey)}
+                      className="w-full h-96 md:h-[500px] object-cover"
                     />
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                       <div className={`text-center text-white p-8 max-w-4xl ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                        <h3 className="text-4xl font-bold mb-6 text-center">{slide.title}</h3>
-                        <p className="text-xl leading-relaxed max-w-3xl mx-auto text-center">{slide.description}</p>
+                        <h3 className="text-4xl font-bold mb-6 text-center">{t(slide.titleKey)}</h3>
+                        <p className="text-xl leading-relaxed max-w-3xl mx-auto text-center">{t(slide.descriptionKey)}</p>
                       </div>
                     </div>
                   </div>
@@ -70,16 +79,34 @@ const ImageSlider = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-6 space-x-3">
-            {slides.map((_, index) => (
+          {/* Navigation Buttons */}
+          <button 
+            onClick={prevSlide} 
+            className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors z-10"
+            aria-label="Previous Slide"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button 
+            onClick={nextSlide} 
+            className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors z-10"
+            aria-label="Next Slide"
+          >
+            <ChevronRight size={24} />
+          </button>
+
+          {/* Dots */}
+          <div className="flex justify-center mt-6">
+            {slideData.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentSlide(index)}
-                className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                className={`w-4 h-4 rounded-md transition-all duration-300 mx-1.5 ${
                   currentSlide === index 
                     ? 'bg-teal-600 scale-110' 
                     : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                 }`}
+                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>

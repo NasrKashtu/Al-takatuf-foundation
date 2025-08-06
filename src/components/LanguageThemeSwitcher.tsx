@@ -15,22 +15,18 @@ const LanguageThemeSwitcher = () => {
   return (
     <div className="flex items-center gap-2">
       {/* Language Switcher */}
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm" className="gap-2">
-            <Globe size={16} />
-            {language === 'en' ? 'EN' : 'AR'}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setLanguage('en')}>
-            English
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setLanguage('ar')}>
-            العربية
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => {
+          console.log('Language switch clicked');
+          setLanguage(language === 'en' ? 'ar' : 'en');
+        }}
+        className="gap-2"
+      >
+        <Globe size={16} />
+        {language === 'en' ? 'EN' : 'AR'}
+      </Button>
 
       {/* Theme Switcher */}
       <Button

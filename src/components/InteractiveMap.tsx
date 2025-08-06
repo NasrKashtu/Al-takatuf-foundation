@@ -6,7 +6,11 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
 // Fix for default markers in react-leaflet
-delete (L.Icon.Default.prototype as any)._getIconUrl;
+type IconDefault = L.Icon.Default & {
+  _getIconUrl?: string;
+};
+
+delete (L.Icon.Default.prototype as IconDefault)._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
@@ -17,7 +21,7 @@ const InteractiveMap = () => {
   const [map, setMap] = useState<L.Map | null>(null);
   
   // Updated coordinates for the selected location from the image
-  const ourLocationCoords: [number, number] = [32.8951, 13.1866]; // Note: Leaflet uses [lat, lng]
+  const ourLocationCoords: [number, number] = [25.9333, 14.9333]; // Umm al Aranib, Libya
   
   const handleZoomIn = () => {
     if (map) {
@@ -45,7 +49,7 @@ const InteractiveMap = () => {
         />
         <Marker position={ourLocationCoords}>
           <Popup>
-            <span>Our Location</span>
+            <span>بلدية الشرقية/أم الأرانب</span>
           </Popup>
         </Marker>
       </MapContainer>
@@ -70,7 +74,7 @@ const InteractiveMap = () => {
       <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-800/90 p-3 md:p-4 rounded-lg text-sm md:text-base z-[1000] max-w-xs">
         <div className="flex items-center gap-2 mb-1">
           <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-          <span className="text-gray-700 dark:text-gray-300">Our Location</span>
+          <span className="text-gray-700 dark:text-gray-300">بلدية الشرقية/أم الأرانب</span>
         </div>
         <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400">Interactive Map</div>
       </div>

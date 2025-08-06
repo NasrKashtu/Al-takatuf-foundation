@@ -1,5 +1,6 @@
 
 import { useApp } from '@/contexts/AppContext';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const { t, language } = useApp();
@@ -16,13 +17,13 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Services Section */}
+          {/* Programs Section */}
           <div className={`${language === 'ar' ? 'text-right' : 'text-left'}`}>
-            <h3 className="text-xl font-bold mb-4 text-teal-400">{t('footerServices')}</h3>
+            <h3 className="text-xl font-bold mb-4 text-teal-400">{t('footerPrograms')}</h3>
             <ul className="space-y-2">
-              <li><a href="#services" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('footerCoaching')}</a></li>
-              <li><a href="#services" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('footerWorkshops')}</a></li>
-              <li><a href="#services" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('footerCommunity')}</a></li>
+              <li><a href="#programs" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('footerCoaching')}</a></li>
+              <li><a href="#programs" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('footerWorkshops')}</a></li>
+              <li><a href="#programs" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('footerCommunity')}</a></li>
             </ul>
           </div>
 
@@ -30,20 +31,28 @@ const Footer = () => {
           <div className={`${language === 'ar' ? 'text-right' : 'text-left'}`}>
             <h3 className="text-xl font-bold mb-4 text-teal-400">{t('footerContactInfo')}</h3>
             <div className="space-y-2 text-gray-300">
-              <p>{t('footerPhone')}</p>
-              <p>{t('footerEmail')}</p>
-              <p className="leading-relaxed">{t('footerAddress')}</p>
+              <div className="flex items-center gap-2">
+                <MapPin className="text-teal-400" />
+                <span>بلدية الشرقية/أم الأرانب</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone className="text-teal-400" />
+                <span>+218 92-0252670</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="text-teal-400" />
+                <span>altakatef1@gmail.com</span>
+              </div>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Follow Us Section */}
           <div className={`${language === 'ar' ? 'text-right' : 'text-left'}`}>
             <h3 className="text-xl font-bold mb-4 text-teal-400">{t('followUs')}</h3>
-            <div className="space-y-2">
-              <a href="#home" className="block text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('home')}</a>
-              <a href="#about" className="block text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('about')}</a>
-              <a href="#services" className="block text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('services')}</a>
-              <a href="#contact" className="block text-gray-300 hover:text-teal-400 transition-colors duration-300">{t('contact')}</a>
+            <div className="flex gap-4">
+              <a href="https://www.facebook.com/profile.php?id=61574523478564" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-teal-400 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
             </div>
           </div>
         </div>

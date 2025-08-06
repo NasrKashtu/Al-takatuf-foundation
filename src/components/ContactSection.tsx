@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import InteractiveMap from './InteractiveMap';
 import { toast } from 'sonner';
@@ -108,17 +108,8 @@ const ContactSection = () => {
             <InteractiveMap />
             
             <div className={`flex space-x-4 justify-center mt-6 ${language === 'ar' ? 'space-x-reverse' : ''}`}>
-              <a href="#" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover-scale">
+              <a href="https://www.facebook.com/profile.php?id=61574523478564" target="_blank" rel="noopener noreferrer" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover:scale-105">
                 <Facebook size={20} />
-              </a>
-              <a href="#" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover-scale">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover-scale">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="bg-teal-600 text-white p-3 rounded-full hover:bg-teal-700 transition-colors duration-300 hover-scale">
-                <Youtube size={20} />
               </a>
             </div>
           </div>

@@ -11,79 +11,85 @@ const BlogSection = () => {
       id: 1,
       title: t('youthEducation'),
       description: t('youthEducationDesc'),
-      date: "2024-12-15",
-      category: t('education'),
+      date: "2025-6-04",
+      category: t('empowerment'),
       media: {
         type: "image",
-        url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop",
+        url: "/public/images/BlogSection/Screenshot 2025-08-04 013217.png",
         alt: "Students learning computer skills"
       },
-      location: t('communityCenter')
+      location: t('communityCenter'),
+      link: "https://www.facebook.com/share/p/1J68FwMfjY/"
     },
     {
       id: 2,
       title: t('communityCleanup'),
       description: t('communityCleanupDesc'),
-      date: "2024-12-10",
+      date: "2025-3-29",
       category: t('environment'),
       media: {
         type: "video",
-        url: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=250&fit=crop",
+        url: "/public/images/BlogSection/photo_2025-07-31_17-22-17.jpg",
         alt: "Community volunteers cleaning"
       },
-      location: t('centralPark')
+      location: t('centralPark'),
+      link: "https://www.facebook.com/profile.php?id=61574523478564"
     },
     {
       id: 3,
       title: t('womenEmpowerment'),
       description: t('womenEmpowermentDesc'),
-      date: "2024-12-05",
-      category: t('empowerment'),
+      date: "2025-03-22",
+      category: t('relief'),
       media: {
         type: "image",
-        url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=250&fit=crop",
+        url: "/public/images/BlogSection/Screenshot 2025-08-03 232806.png",
         alt: "Women entrepreneurs speaking"
       },
-      location: t('businessHub')
+      location: t('Umm al Aranib'),
+      link: "https://www.facebook.com/share/p/1ZFeGsykjh/"
     },
     {
       id: 4,
       title: t('healthAwareness'),
       description: t('healthAwarenessDesc'),
       date: "2024-11-28",
-      category: t('health'),
+      category: t('empowerment'),
       media: {
         type: "video",
-        url: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=250&fit=crop",
+        url: "/public/images/BlogSection/Screenshot 2025-08-03 234116.png",
         alt: "Health checkup camp"
       },
-      location: t('mobileHealthUnit')
+      location: t('Umm al Aranib'),
+      link: "https://www.facebook.com/share/p/15rAkfSz7H/"
     },
     {
       id: 5,
       title: t('childrenArt'),
       description: t('childrenArtDesc'),
       date: "2024-11-20",
-      category: t('children'),
+      category: t('empowerment'),
       media: {
         type: "image",
-        url: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop",
+        url: "/public/images/BlogSection/Screenshot 2025-08-03 235320.png",
         alt: "Children doing arts and crafts"
       },
-      location: t('altakathufCenter')
+      location: t('altakathufCenter'),
+      link: "https://www.facebook.com/profile.php?id=61574523478564"
     },
     {
       id: 6,
       title: t('foodDistribution'),
       description: t('foodDistributionDesc'),
-      date: "2024-11-15",
+      date: "2025-03-25",
       category: t('relief'),
       media: {
         type: "video",
-        url: "https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&h=250&fit=crop",
+        url: "/public/images/BlogSection/Screenshot 2025-08-03 231716.png",
         alt: "Food distribution activity"
       },
-      location: t('variousNeighborhoods')
+      location: t('variousNeighborhoods'),
+      link: "https://www.facebook.com/share/p/1J5MJdagVs/"
     }
   ];
 
@@ -161,18 +167,18 @@ const BlogSection = () => {
                 </CardTitle>
               </CardHeader>
               
-              <CardContent className="pt-0">
-                <p className={`text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
+              <CardContent className="pt-0 flex flex-col flex-grow">
+                <p className={`text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-grow ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {activity.description}
                 </p>
-                <div className={`flex items-center justify-between ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-center justify-between mt-auto ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
                   <span className={`text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-600 px-2 py-1 rounded ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                     📍 {activity.location}
                   </span>
-                  <button className={`text-teal-600 hover:text-teal-700 font-medium text-sm flex items-center transition-colors group ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
+                  <a href={activity.link} target="_blank" rel="noopener noreferrer" className={`text-teal-600 hover:text-teal-700 font-medium text-sm flex items-center transition-colors group ${language === 'ar' ? 'flex-row-reverse' : ''}`}>
                     {t('readMore')}
                     <ArrowRight size={16} className={`${language === 'ar' ? 'mr-1 rotate-180' : 'ml-1'} transition-transform group-hover:${language === 'ar' ? '-translate-x-1' : 'translate-x-1'}`} />
-                  </button>
+                  </a>
                 </div>
               </CardContent>
             </Card>
@@ -180,9 +186,11 @@ const BlogSection = () => {
         </div>
 
         <div className="text-center">
-          <button className="bg-teal-600 text-white px-8 py-3 rounded-full hover:bg-teal-700 transition-colors duration-300 font-medium animate-fade-in">
-            {t('viewAllActivities')}
-          </button>
+          <a href="https://www.facebook.com/profile.php?id=61574523478564" target="_blank" rel="noopener noreferrer">
+            <button className="bg-teal-600 text-white px-8 py-3 rounded-full hover:bg-teal-700 transition-colors duration-300 font-medium animate-fade-in">
+              {t('viewAllActivities')}
+            </button>
+          </a>
         </div>
       </div>
     </section>

@@ -11,7 +11,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'about', 'services', 'blog', 'contact'];
+      const sections = ['home', 'about', 'mission-vision', 'programs', 'blog', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -40,7 +40,7 @@ const Header = () => {
   };
 
   const getButtonClass = (section: string) => {
-    const baseClass = "px-4 py-2 rounded-full transition-colors duration-300";
+    const baseClass = "px-4 py-2 rounded-full transition-colors duration-300 whitespace-nowrap";
     if (activeSection === section) {
       return `${baseClass} text-white bg-teal-600`;
     }
@@ -48,42 +48,22 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300">
+    <header 
+      dir="rtl"
+      className="fixed top-0 left-0 right-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300"
+    >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div 
-            className={`flex items-center gap-3 cursor-pointer text-2xl font-bold text-gray-700 dark:text-gray-200 animate-fade-in ${language === 'ar' ? 'flex-row-reverse' : ''}`}
-            onClick={() => scrollToSection('home')}
-          >
-            <div className="w-8 h-8 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/d1d2b832-5a62-4fd1-8151-ecc99e184843.png" 
-                alt="Altakathuf Logo" 
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <span>{t('siteName')}</span>
-          </div>
-          
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 items-center">
+          <nav className="hidden md:flex items-center space-x-reverse space-x-4">
+            <div className="ml-4"> 
+              <LanguageThemeSwitcher />
+            </div>
             <button 
-              onClick={() => scrollToSection('home')}
-              className={getButtonClass('home')}
+              onClick={() => scrollToSection('contact')}
+              className={getButtonClass('contact')}
             >
-              {t('home')}
-            </button>
-            <button 
-              onClick={() => scrollToSection('about')}
-              className={getButtonClass('about')}
-            >
-              {t('about')}
-            </button>
-            <button 
-              onClick={() => scrollToSection('services')}
-              className={getButtonClass('services')}
-            >
-              {t('services')}
+              {t('contact')}
             </button>
             <button 
               onClick={() => scrollToSection('blog')}
@@ -92,29 +72,62 @@ const Header = () => {
               {t('blog')}
             </button>
             <button 
-              onClick={() => scrollToSection('contact')}
-              className={getButtonClass('contact')}
+              onClick={() => scrollToSection('programs')}
+              className={getButtonClass('programs')}
             >
-              {t('contact')}
+              {t('programs')}
             </button>
-            <LanguageThemeSwitcher />
+            <button 
+              onClick={() => scrollToSection('mission-vision')}
+              className={getButtonClass('mission-vision')}
+            >
+              {t('ourMissionAndVision')}
+            </button>
+            <button 
+              onClick={() => scrollToSection('about')}
+              className={getButtonClass('about')}
+            >
+              {t('about')}
+            </button>
+            <button 
+              onClick={() => scrollToSection('home')}
+              className={getButtonClass('home')}
+            >
+              {t('home')}
+            </button>
           </nav>
 
+          <div 
+            className="flex items-center gap-3 cursor-pointer text-xl font-bold text-gray-700 dark:text-gray-200 animate-fade-in"
+            onClick={() => scrollToSection('home')}
+          >
+            <div className="w-8 h-8 flex items-center justify-center">
+              <img 
+                src="/favicon.png"
+                alt="Altakathuf Logo" 
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <span>{t('siteName')}</span>
+          </div>
+          
           {/* Mobile Menu Button and Switchers */}
           <div className="md:hidden flex items-center gap-2">
-            <LanguageThemeSwitcher />
             <button 
               className="text-gray-700 dark:text-gray-200"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
+            <div className="ml-4">
+              <LanguageThemeSwitcher />
+            </div>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 animate-slide-in-right">
+          <nav className="md:hidden mt-4 pb-4 animate-slide-in-left">
             <div className="flex flex-col space-y-4">
               <button 
                 onClick={() => scrollToSection('home')}
@@ -129,10 +142,16 @@ const Header = () => {
                 {t('about')}
               </button>
               <button 
-                onClick={() => scrollToSection('services')}
-                className={`${getButtonClass('services')} text-center`}
+                onClick={() => scrollToSection('mission-vision')}
+                className={`${getButtonClass('mission-vision')} text-center`}
               >
-                {t('services')}
+                {t('ourMissionAndVision')}
+              </button>
+              <button 
+                onClick={() => scrollToSection('programs')}
+                className={`${getButtonClass('programs')} text-center`}
+              >
+                {t('programs')}
               </button>
               <button 
                 onClick={() => scrollToSection('blog')}
