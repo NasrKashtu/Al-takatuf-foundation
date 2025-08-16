@@ -101,7 +101,7 @@ const Header = () => {
             className="flex items-center gap-3 cursor-pointer text-xl font-bold text-gray-700 dark:text-gray-200 animate-fade-in"
             onClick={() => scrollToSection('home')}
           >
-            <div className="w-10 h-10 flex items-center justify-center rounded-md overflow-hidden">
+            <div className="w-10 h-10 flex items-center justify-center rounded-full overflow-hidden">
               <img 
                 src="/favicon.png"
                 alt="Altakathuf Logo" 

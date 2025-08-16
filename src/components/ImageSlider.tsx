@@ -14,7 +14,7 @@ const slideData = [
     descriptionKey: 'slide2Desc'
   },
   {
-    image: "/images/Slider/Screenshot 2025-07-31 142643.png",
+    image: "/images/Slider/Slider Image.png",
     titleKey: 'slide3Title',
     descriptionKey: 'slide3Desc'
   }
@@ -65,7 +65,7 @@ const ImageSlider = () => {
                     <img 
                       src={slide.image}
                       alt={t(slide.titleKey)}
-                      className="w-full h-96 md:h-[500px] object-cover"
+                      className="w-full h-96 md:h-[570px] object-cover"
                     />
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                       <div className={`text-center text-white p-8 max-w-4xl ${language === 'ar' ? 'text-right' : 'text-left'}`}>
@@ -80,7 +80,7 @@ const ImageSlider = () => {
           </div>
 
           {/* Navigation Buttons */}
-          <button 
+          {/* <button 
             onClick={prevSlide} 
             className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors z-10"
             aria-label="Previous Slide"
@@ -92,8 +92,8 @@ const ImageSlider = () => {
             className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors z-10"
             aria-label="Next Slide"
           >
-            <ChevronRight size={24} />
-          </button>
+            <ChevronRight size={4} />
+          </button> */}
 
           {/* Dots */}
           <div className="flex justify-center mt-6">

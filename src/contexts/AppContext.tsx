@@ -40,8 +40,8 @@ const translations = {
     // Blog/Activities translations
     youthEducation: "Second Periodic Meeting",
     youthEducationDesc: "With God's grace and success, the Altakathuf Foundation for Community Development held its second periodic meeting on Monday, June 2, 2025, as part of its continuous institutional commitment towards achieving effective and sustainable community development. The meeting included a number of key topics, most notably:",
-    communityCleanup: "Community Clean-up Drive",
-    communityCleanupDesc: "Volunteers from across the city joined us for a neighborhood beautification project, cleaning parks and planting trees.",
+    communityCleanup: "Mosque Cleaning and Sanitization Campaign",
+    communityCleanupDesc: "Volunteers joined us in a project to clean and sanitize mosques, restrooms, and ablution areas in the Umm al-Aranib locality.",
     womenEmpowerment: "Strength in Unity Iftar",
     womenEmpowermentDesc: "A Ramadan Iftar table under the slogan 'Our strength is in our unity' 🤝",
     healthAwareness: "Voter Card Awareness Campaign",
@@ -52,7 +52,7 @@ const translations = {
     foodDistributionDesc: "Monthly food distribution program serving 150+ families in need, providing essential groceries and fresh produce.",
     // Contact form
     contactUs: "Contact us",
-    contactDesc: "We are here to help and answer any question you might have. We look forward to hearing from you.",
+    contactDesc: "We are here to help and answer any question you might have. We look forward to hearing from you. You can also reach us through our social media channels.",
     name: "Name",
     email: "Email address",
     message: "Message",
@@ -159,7 +159,7 @@ const translations = {
     foodDistributionDesc: "في إطار جهودها الإنسانية، وبالتعاون مع جمعية الخير السودانية – أم الأرانب، قامت مؤسسة التكاثف للتنمية المجتمعية بتوزيع سلال رمضان الغذائية على 120 أسرة نازحة من السودان في بلدية الشرقية، بدعم كريم من فاعلي الخير.",
     // Contact form
     contactUs: "اتصل بنا",
-    contactDesc: "تواصل معنا اليوم لبدء رحلتك نحو النمو الشخصي والتمكين.",
+    contactDesc: "نحن هنا للمساعدة والإجابة على أي سؤال قد يكون لديك. نتطلع إلى الاستماع منك. يمكنك أيضًا الوصول إلينا عبر قنوات التواصل الاجتماعي الخاصة بنا.",
     name: "الاسم",
     email: "عنوان البريد الإلكتروني",
     message: "الرسالة",
@@ -173,12 +173,11 @@ const translations = {
     relief: "الإغاثة",
     // Locations
     communityCenter: "المركز المجتمعي، وسط المدينة",
-    centralPark: "منطقة الحديقة المركزية",
+    "Umm al Aranib": "أم الأرانب",
     businessHub: "مركز الأعمال",
     mobileHealthUnit: "وحدة الصحة المتنقلة",
     altakathufCenter: "مركز التكاثف",
     variousNeighborhoods: "أحياء متنوعة",
-    "Umm al Aranib": "أم الأرانب",
     // New sections - FAQ, Testimonials, About, Footer
     aboutUs: "من نحن",
     aboutUsTitle: "تمكين المجتمعات من خلال العمل",
