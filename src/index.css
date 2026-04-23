@@ -4,6 +4,11 @@
 
 @layer base {
   :root {
+    /* Brand — single source of truth. Change here to re-skin. */
+    --brand: 174 84% 32%;
+    --brand-tint: 172 70% 95%;
+    --brand-ink: 175 77% 26%;
+
     /* Surfaces */
     --background: 0 0% 99%;
     --foreground: 215 25% 12%;
@@ -12,21 +17,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 12%;
 
-    /* Brand — teal */
-    --primary: 174 84% 32%;
+    --primary: var(--brand);
     --primary-foreground: 0 0% 100%;
 
     /* Soft brand tint for chips/subtle surfaces */
-    --secondary: 172 70% 95%;
-    --secondary-foreground: 175 77% 26%;
+    --secondary: var(--brand-tint);
+    --secondary-foreground: var(--brand-ink);
 
     /* Muted neutral surfaces + secondary text */
     --muted: 210 16% 96%;
     --muted-foreground: 215 14% 43%;
 
     /* Accent shares the soft brand tint */
-    --accent: 172 70% 95%;
-    --accent-foreground: 175 77% 26%;
+    --accent: var(--brand-tint);
+    --accent-foreground: var(--brand-ink);
 
     /* Semantic */
     --destructive: 0 72% 51%;
@@ -41,17 +45,17 @@
     /* Lines + focus */
     --border: 214 15% 89%;
     --input: 214 15% 89%;
-    --ring: 174 84% 32%;
+    --ring: var(--brand);
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 174 84% 32%;
+    --sidebar-primary: var(--brand);
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 174 84% 32%;
+    --sidebar-ring: var(--brand);
 
     /* Category hues — single source per category. Badges read these with
        opacity modifiers; the hue value changes in .dark so no per-class
@@ -65,6 +69,11 @@
   }
 
   .dark {
+    /* Brand — dark-mode values (lifted lightness, slight desaturation). */
+    --brand: 172 66% 50%;
+    --brand-tint: 175 40% 18%;
+    --brand-ink: 172 70% 85%;
+
     /* Off-black surfaces, not pure black */
     --background: 220 14% 8%;
     --foreground: 210 20% 93%;
@@ -73,18 +82,17 @@
     --popover: 220 14% 11%;
     --popover-foreground: 210 20% 93%;
 
-    /* Brand desaturated for dark */
-    --primary: 172 66% 50%;
+    --primary: var(--brand);
     --primary-foreground: 174 84% 10%;
 
-    --secondary: 175 40% 18%;
-    --secondary-foreground: 172 70% 85%;
+    --secondary: var(--brand-tint);
+    --secondary-foreground: var(--brand-ink);
 
     --muted: 220 14% 14%;
     --muted-foreground: 215 15% 65%;
 
-    --accent: 175 40% 18%;
-    --accent-foreground: 172 70% 85%;
+    --accent: var(--brand-tint);
+    --accent-foreground: var(--brand-ink);
 
     --destructive: 0 62% 45%;
     --destructive-foreground: 0 0% 98%;
@@ -97,16 +105,16 @@
 
     --border: 220 14% 20%;
     --input: 220 14% 20%;
-    --ring: 172 66% 50%;
+    --ring: var(--brand);
 
     --sidebar-background: 220 14% 10%;
     --sidebar-foreground: 210 20% 93%;
-    --sidebar-primary: 172 66% 50%;
+    --sidebar-primary: var(--brand);
     --sidebar-primary-foreground: 174 84% 10%;
     --sidebar-accent: 220 14% 14%;
     --sidebar-accent-foreground: 210 20% 93%;
     --sidebar-border: 220 14% 20%;
-    --sidebar-ring: 172 66% 50%;
+    --sidebar-ring: var(--brand);
 
     /* Category hues — dark variants (lifted lightness, slightly lower sat) */
     --cat-education: 212 80% 65%;
