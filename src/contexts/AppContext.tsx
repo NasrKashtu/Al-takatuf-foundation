@@ -21,6 +21,9 @@ const translations = {
     // ... keep existing code (basic translations)
     welcome: "Welcome to Altakathif",
     description: "Altakathuf Foundation for Community Development is a non-governmental, non-profit organization dedicated to empowering individuals and communities.",
+    heroTagline: "Community Development Foundation",
+    getInvolved: "Get Involved",
+    learnMore: "Learn More",
     programs: "Programs",
     blog: "Activities & Impact",
     blogDescription: "See our foundation in action - from educational workshops to community outreach programs",
@@ -128,6 +131,9 @@ const translations = {
     // ... keep existing code (basic translations)
     welcome: "مرحباً بكم في التكاثف",
     description: "مؤسسة التكاثف للتنمية المجتمعية هي منظمة غير حكومية وغير هادفة للربح مكرسة لتمكين الأفراد والمجتمعات.",
+    heroTagline: "مؤسسة للتنمية المجتمعية",
+    getInvolved: "انضم إلينا",
+    learnMore: "اعرف المزيد",
     programs: "برامجنا",
     blog: "أنشطتنا وتأثيرنا",
     blogDescription: "شاهد مؤسستنا في العمل - من ورش العمل التعليمية إلى برامج التواصل المجتمعي",

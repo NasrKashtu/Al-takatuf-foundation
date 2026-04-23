@@ -23,7 +23,45 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: [
+					'Inter',
+					'system-ui',
+					'-apple-system',
+					'Segoe UI',
+					'Roboto',
+					'sans-serif',
+				],
+				arabic: [
+					'IBM Plex Sans Arabic',
+					'Inter',
+					'system-ui',
+					'sans-serif',
+				],
+			},
+			fontSize: {
+				'display-sm': ['2.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '700' }],
+				'display': ['3.75rem', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '700' }],
+				'display-lg': ['5rem', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '800' }],
+			},
+			boxShadow: {
+				'sm-soft': '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
+				'md-soft': '0 4px 12px rgba(0,0,0,0.08)',
+				'lg-soft': '0 12px 24px rgba(0,0,0,0.10)',
+			},
 			colors: {
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
+				warning: {
+					DEFAULT: 'hsl(var(--warning))',
+					foreground: 'hsl(var(--warning-foreground))'
+				},
+				info: {
+					DEFAULT: 'hsl(var(--info))',
+					foreground: 'hsl(var(--info-foreground))'
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
