@@ -140,6 +140,14 @@
 
   html {
     scroll-behavior: smooth;
+    /* Keep anchor targets out from under the fixed header (h-16 = 4rem). */
+    scroll-padding-top: 4rem;
+  }
+
+  /* Section anchors land 4rem below the top so the sticky header doesn't
+     cover their heading. Works for scrollIntoView too (not just CSS anchors). */
+  section[id] {
+    scroll-margin-top: 4rem;
   }
 
   body {

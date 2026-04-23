@@ -13,14 +13,19 @@ const NAV_ITEMS = [
   { id: 'contact', label: 'contact' },
 ] as const;
 
+const focusRing =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t, language } = useApp();
+  const { t } = useApp();
 
   useEffect(() => {
     const handleScroll = () => {
+      // +100 pushes the "detection line" below the header so active-section
+      // flips around the heading, not the top edge of the section.
       const scrollPosition = window.scrollY + 100;
       setIsScrolled(window.scrollY > 8);
 
@@ -46,13 +51,13 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    // scroll-margin-top: 4rem in index.css handles the offset under the header.
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
 
   const navButtonClass = (section: string) => {
-    const base =
-      'relative px-3 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap';
+    const base = `relative px-3 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${focusRing}`;
     if (activeSection === section) {
       return `${base} text-primary`;
     }
@@ -61,18 +66,18 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-background/90 backdrop-blur-md border-b border-border shadow-sm-soft'
           : 'bg-background/60 backdrop-blur-sm'
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 gap-4">
           {/* Logo — logical start */}
           <button
             onClick={() => scrollToSection('home')}
-            className="flex items-center gap-3 text-lg font-bold text-foreground hover:text-primary transition-colors"
+            className={`flex items-center gap-3 text-base sm:text-lg font-bold text-foreground hover:text-primary transition-colors rounded-md ${focusRing}`}
             aria-label={t('siteName')}
           >
             <div className="w-9 h-9 flex items-center justify-center rounded-full overflow-hidden ring-2 ring-primary/10">
@@ -86,12 +91,16 @@ const Header = () => {
           </button>
 
           {/* Desktop nav — middle */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav
+            aria-label="Primary"
+            className="hidden lg:flex items-center gap-1"
+          >
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={navButtonClass(item.id)}
+                aria-current={activeSection === item.id ? 'page' : undefined}
               >
                 {t(item.label)}
                 {activeSection === item.id && (
@@ -115,10 +124,11 @@ const Header = () => {
             </Button>
             <LanguageThemeSwitcher />
             <button
-              className="lg:hidden p-2 rounded-md text-foreground hover:bg-muted transition-colors"
+              className={`lg:hidden p-2 rounded-md text-foreground hover:bg-muted transition-colors ${focusRing}`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
             >
               {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -128,6 +138,8 @@ const Header = () => {
         {/* Mobile nav */}
         {isMenuOpen && (
           <nav
+            id="mobile-nav"
+            aria-label="Primary"
             className="lg:hidden border-t border-border py-3 animate-fade-in"
           >
             <div className="flex flex-col gap-1">
@@ -135,11 +147,12 @@ const Header = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
+                  aria-current={activeSection === item.id ? 'page' : undefined}
                   className={`${
                     activeSection === item.id
                       ? 'bg-primary/10 text-primary'
                       : 'text-foreground/80 hover:bg-muted'
-                  } px-4 py-2.5 rounded-md text-sm font-medium text-start transition-colors`}
+                  } px-4 py-2.5 rounded-md text-sm font-medium text-start transition-colors ${focusRing}`}
                 >
                   {t(item.label)}
                 </button>
