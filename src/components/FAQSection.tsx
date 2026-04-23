@@ -1,52 +1,58 @@
-
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 
 const FAQSection = () => {
-  const { t, language } = useApp();
+  const { t } = useApp();
   const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
-    {
-      question: t('faqQ1'),
-      answer: t('faqA1')
-    },
-    {
-      question: t('faqQ2'),
-      answer: t('faqA2')
-    },
-    {
-      question: t('faqQ3'),
-      answer: t('faqA3')
-    }
+    { question: t('faqQ1'), answer: t('faqA1') },
+    { question: t('faqQ2'), answer: t('faqA2') },
+    { question: t('faqQ3'), answer: t('faqA3') },
   ];
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className={`container mx-auto px-4 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-        <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-gray-100 mb-16 animate-fade-in">
+    <section className="py-20 bg-muted/40">
+      <div className="container mx-auto px-4 text-start">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12 animate-fade-in">
           {t('faq')}
         </h2>
-        
-        <div className="max-w-3xl mx-auto">
-          {faqs.map((faq, index) => (
-            <div key={index} className="mb-4">
-              <button
-                className="w-full bg-teal-600 dark:bg-teal-700 text-white p-4 rounded-lg flex items-center justify-between hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors duration-300"
-                onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
+
+        <div className="max-w-3xl mx-auto space-y-3">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
+                key={index}
+                className="rounded-lg border border-border bg-card overflow-hidden"
               >
-                <span className={`font-medium ${language === 'ar' ? 'text-right' : 'text-left'}`}>{faq.question}</span>
-                {openIndex === index ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-              </button>
-              
-              {openIndex === index && (
-                <div className="bg-white dark:bg-gray-700 p-4 rounded-b-lg border-l-4 border-teal-600 dark:border-teal-500 animate-accordion-down">
-                  <p className={`text-gray-600 dark:text-gray-300 leading-relaxed ${language === 'ar' ? 'text-right' : 'text-left'}`}>{faq.answer}</p>
-                </div>
-              )}
-            </div>
-          ))}
+                <button
+                  className="w-full p-4 flex items-center justify-between text-foreground hover:bg-muted/50 transition-colors"
+                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                  aria-expanded={isOpen}
+                >
+                  <span className="font-medium text-start">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    size={20}
+                    className={`text-muted-foreground transition-transform duration-300 ${
+                      isOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {isOpen && (
+                  <div className="px-4 pb-4 border-t border-border animate-accordion-down">
+                    <p className="pt-4 text-muted-foreground leading-relaxed text-start">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

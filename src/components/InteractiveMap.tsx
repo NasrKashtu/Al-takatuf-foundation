@@ -36,7 +36,7 @@ const InteractiveMap = () => {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 w-full h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] 2xl:h-[700px] rounded-lg overflow-hidden">
+    <div className="relative bg-muted w-full h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] 2xl:h-[700px] rounded-lg overflow-hidden border border-border">
       <MapContainer
         center={ourLocationCoords}
         zoom={12}
@@ -58,25 +58,25 @@ const InteractiveMap = () => {
       <div className="absolute top-4 right-4 flex flex-col gap-2 z-[1000]">
         <button
           onClick={handleZoomIn}
-          className="bg-white dark:bg-gray-700 p-2 md:p-3 rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+          className="bg-card text-foreground p-2 md:p-3 rounded-lg shadow-md-soft hover:bg-muted border border-border transition-colors"
         >
-          <ZoomIn size={20} className="text-gray-700 dark:text-gray-300" />
+          <ZoomIn size={20} />
         </button>
         <button
           onClick={handleZoomOut}
-          className="bg-white dark:bg-gray-700 p-2 md:p-3 rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+          className="bg-card text-foreground p-2 md:p-3 rounded-lg shadow-md-soft hover:bg-muted border border-border transition-colors"
         >
-          <ZoomOut size={20} className="text-gray-700 dark:text-gray-300" />
+          <ZoomOut size={20} />
         </button>
       </div>
 
       {/* Map Legend */}
-      <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-800/90 p-3 md:p-4 rounded-lg text-sm md:text-base z-[1000] max-w-xs">
+      <div className="absolute bottom-4 left-4 bg-card/95 backdrop-blur-sm border border-border p-3 md:p-4 rounded-lg text-sm md:text-base z-[1000] max-w-xs shadow-md-soft">
         <div className="flex items-center gap-2 mb-1">
-          <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-          <span className="text-gray-700 dark:text-gray-300">بلدية الشرقية/أم الأرانب</span>
+          <div className="w-3 h-3 bg-primary rounded-full"></div>
+          <span className="text-foreground">بلدية الشرقية/أم الأرانب</span>
         </div>
-        <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400">Interactive Map</div>
+        <div className="text-xs md:text-sm text-muted-foreground">Interactive Map</div>
       </div>
     </div>
   );

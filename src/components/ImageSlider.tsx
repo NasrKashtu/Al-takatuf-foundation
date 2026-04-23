@@ -37,40 +37,40 @@ const ImageSlider = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const isRTL = language === 'ar';
+
   return (
-    <section dir={language === 'ar' ? 'rtl' : 'ltr'} className="py-12 bg-gray-50 dark:bg-gray-800">
+    // Slider uses LTR internally so translateX math is direction-independent;
+    // the inner caption reads in the active language naturally.
+    <section dir="ltr" className="py-16 bg-muted/40">
       <div className="container mx-auto px-8">
-        <div className={`text-center mb-12 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-          <h2 dir={language === 'ar' ? 'rtl' : 'ltr'} className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-6 animate-fade-in text-center">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 animate-fade-in">
             {t('sliderTitle')}
           </h2>
-          <p dir={language === 'ar' ? 'rtl' : 'ltr'} className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto animate-fade-in text-center">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto animate-fade-in">
             {t('sliderDesc')}
           </p>
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4">
-          <div className="overflow-hidden rounded-xl shadow-2xl">
-            <div 
+          <div className="overflow-hidden rounded-xl shadow-lg-soft">
+            <div
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ 
-                transform: language === 'ar' 
-                  ? `translateX(${currentSlide * 100}%)` 
-                  : `translateX(-${currentSlide * 100}%)` 
-              }}
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {slideData.map((slide, index) => (
                 <div key={index} className="w-full flex-shrink-0">
-                  <div className="relative">
-                    <img 
+                  <div className="relative" dir={isRTL ? 'rtl' : 'ltr'}>
+                    <img
                       src={slide.image}
                       alt={t(slide.titleKey)}
                       className="w-full h-96 md:h-[570px] object-cover"
                     />
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                      <div className={`text-center text-white p-8 max-w-4xl ${language === 'ar' ? 'text-right' : 'text-left'}`}>
-                        <h3 className="text-4xl font-bold mb-6 text-center">{t(slide.titleKey)}</h3>
-                        <p className="text-xl leading-relaxed max-w-3xl mx-auto text-center">{t(slide.descriptionKey)}</p>
+                      <div className="text-center text-white p-8 max-w-4xl">
+                        <h3 className="text-3xl md:text-4xl font-bold mb-6">{t(slide.titleKey)}</h3>
+                        <p className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">{t(slide.descriptionKey)}</p>
                       </div>
                     </div>
                   </div>
@@ -102,9 +102,9 @@ const ImageSlider = () => {
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 className={`w-4 h-4 rounded-md transition-all duration-300 mx-1.5 ${
-                  currentSlide === index 
-                    ? 'bg-teal-600 scale-110' 
-                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                  currentSlide === index
+                    ? 'bg-primary scale-110'
+                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />

@@ -3,8 +3,7 @@ import { useApp } from '@/contexts/AppContext';
 import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
-  const { t, language } = useApp();
-  const isRTL = language === 'ar';
+  const { t } = useApp();
 
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -62,7 +61,7 @@ const HeroSection = () => {
             >
               {t('getInvolved')}
               <ArrowRight
-                className={`h-4 w-4 ${isRTL ? 'rotate-180' : ''}`}
+                className="h-4 w-4 rtl:rotate-180"
                 aria-hidden="true"
               />
             </Button>
