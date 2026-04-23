@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Calendar, Video, Image, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useApp } from '@/contexts/AppContext';
@@ -101,23 +102,29 @@ const BlogSection = () => {
     });
   };
 
-  // Per-category color coding — intentionally distinct from brand palette.
-  const getCategoryColor = (category: string) => {
-    const colors: Record<string, string> = {
-      [t('education')]:
-        'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800',
-      [t('environment')]:
-        'bg-green-50 text-green-600 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800',
-      [t('empowerment')]:
-        'bg-purple-50 text-purple-600 border-purple-200 dark:bg-purple-900/20 dark:text-purple-400 dark:border-purple-800',
-      [t('health')]:
-        'bg-red-50 text-red-600 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800',
-      [t('children')]:
-        'bg-yellow-50 text-yellow-600 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800',
-      [t('relief')]:
-        'bg-orange-50 text-orange-600 border-orange-200 dark:bg-orange-900/20 dark:text-orange-400 dark:border-orange-800',
+  // Category → CSS var name. Colors themselves live in index.css (`--cat-*`)
+  // and swap values in .dark, so no per-class `dark:` overrides are needed.
+  const categoryVar = (category: string): string | null => {
+    const map: Record<string, string> = {
+      [t('education')]: 'education',
+      [t('environment')]: 'environment',
+      [t('empowerment')]: 'empowerment',
+      [t('health')]: 'health',
+      [t('children')]: 'children',
+      [t('relief')]: 'relief',
     };
-    return colors[category] || 'bg-muted text-muted-foreground border-border';
+    return map[category] ?? null;
+  };
+
+  const categoryStyle = (category: string): CSSProperties | undefined => {
+    const key = categoryVar(category);
+    if (!key) return undefined;
+    const hue = `var(--cat-${key})`;
+    return {
+      backgroundColor: `hsl(${hue} / 0.12)`,
+      color: `hsl(${hue})`,
+      borderColor: `hsl(${hue} / 0.28)`,
+    };
   };
 
   return (
@@ -159,9 +166,8 @@ const BlogSection = () => {
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between mb-3">
                   <span
-                    className={`text-sm font-medium px-3 py-1 rounded-full border ${getCategoryColor(
-                      activity.category
-                    )}`}
+                    className="text-sm font-medium px-3 py-1 rounded-full border bg-muted text-muted-foreground border-border"
+                    style={categoryStyle(activity.category)}
                   >
                     {activity.category}
                   </span>

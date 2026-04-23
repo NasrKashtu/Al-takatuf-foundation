@@ -52,6 +52,16 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 174 84% 32%;
+
+    /* Category hues — single source per category. Badges read these with
+       opacity modifiers; the hue value changes in .dark so no per-class
+       dark: overrides are needed downstream. */
+    --cat-education: 212 85% 45%;
+    --cat-environment: 142 60% 38%;
+    --cat-empowerment: 270 60% 55%;
+    --cat-health: 0 72% 51%;
+    --cat-children: 38 92% 48%;
+    --cat-relief: 22 88% 52%;
   }
 
   .dark {
@@ -97,6 +107,14 @@
     --sidebar-accent-foreground: 210 20% 93%;
     --sidebar-border: 220 14% 20%;
     --sidebar-ring: 172 66% 50%;
+
+    /* Category hues — dark variants (lifted lightness, slightly lower sat) */
+    --cat-education: 212 80% 65%;
+    --cat-environment: 142 55% 58%;
+    --cat-empowerment: 270 70% 72%;
+    --cat-health: 0 75% 65%;
+    --cat-children: 38 92% 62%;
+    --cat-relief: 22 88% 65%;
   }
 }
 
