@@ -1,5 +1,7 @@
 import { useApp } from '@/contexts/AppContext';
 
+const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61574523478564';
+
 const AboutSection = () => {
   const { t } = useApp();
 
@@ -12,9 +14,14 @@ const AboutSection = () => {
         <p className="text-lg md:text-xl mb-10 max-w-4xl mx-auto leading-relaxed animate-fade-in text-start">
           {t('aboutUsDesc')}
         </p>
-        <button className="bg-primary-foreground text-primary px-8 py-3 rounded-md hover:bg-primary-foreground/90 transition-colors duration-300 font-semibold hover-scale">
+        <a
+          href={FACEBOOK_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-primary-foreground text-primary px-8 py-3 rounded-md hover:bg-primary-foreground/90 transition-colors duration-300 font-semibold hover-scale"
+        >
           {t('moreInfo')}
-        </button>
+        </a>
       </div>
     </section>
   );
