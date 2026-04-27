@@ -1,5 +1,5 @@
-
-import type { Config } from "tailwindcss";
+import type { Config, PluginAPI } from "tailwindcss/types/config";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -162,17 +162,16 @@ export default {
 		}
 	},
 	plugins: [
-		require("tailwindcss-animate"),
-		function({ addUtilities }: any) {
-			const newUtilities = {
+		tailwindcssAnimate,
+		function ({ addUtilities }: PluginAPI) {
+			addUtilities({
 				'.hover-scale': {
-					'transition': 'transform 0.3s ease-in-out',
+					transition: 'transform 0.3s ease-in-out',
 					'&:hover': {
-						'transform': 'scale(1.05)'
-					}
-				}
-			}
-			addUtilities(newUtilities)
-		}
+						transform: 'scale(1.05)',
+					},
+				},
+			});
+		},
 	],
 } satisfies Config;
