@@ -1,4 +1,3 @@
-import { link } from 'fs';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type Language = 'en' | 'ar';
