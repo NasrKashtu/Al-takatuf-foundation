@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useApp } from '@/contexts/AppContext';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const slideData = [
   {
@@ -24,16 +23,11 @@ const ImageSlider = () => {
   const { t, language } = useApp();
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slideData.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slideData.length) % slideData.length);
-  };
-
   useEffect(() => {
-    const timer = setInterval(nextSlide, 4000);
+    const timer = setInterval(
+      () => setCurrentSlide((prev) => (prev + 1) % slideData.length),
+      4000,
+    );
     return () => clearInterval(timer);
   }, []);
 
@@ -78,22 +72,6 @@ const ImageSlider = () => {
               ))}
             </div>
           </div>
-
-          {/* Navigation Buttons */}
-          {/* <button 
-            onClick={prevSlide} 
-            className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors z-10"
-            aria-label="Previous Slide"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button 
-            onClick={nextSlide} 
-            className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/75 transition-colors z-10"
-            aria-label="Next Slide"
-          >
-            <ChevronRight size={4} />
-          </button> */}
 
           {/* Dots */}
           <div className="flex justify-center mt-6">
