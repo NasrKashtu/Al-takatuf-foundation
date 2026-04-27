@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Facebook, Linkedin, Send } from 'lucide-react';
+import { Facebook, Linkedin } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import InteractiveMap from './InteractiveMap';
 import { toast } from 'sonner';
@@ -127,44 +127,13 @@ const ContactSection = () => {
                 <Facebook size={20} />
               </a>
               <a
-                href="https://twitter.com/yourprofile"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialBtn}
-                aria-label="X"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 6 6 18" />
-                  <path d="m6 6 12 12" />
-                </svg>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/yourprofile"
+                href="https://www.linkedin.com/company/al-takathuf-foundation-for-community-development/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={socialBtn}
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
-              </a>
-              <a
-                href="https://t.me/yourprofile"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialBtn}
-                aria-label="Telegram"
-              >
-                <Send size={20} />
               </a>
             </div>
           </div>
