@@ -41,6 +41,8 @@ const ProgramsSection = () => {
                 <img
                   src={program.image}
                   alt={program.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                 />
               </div>

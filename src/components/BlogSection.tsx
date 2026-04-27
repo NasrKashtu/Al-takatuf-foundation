@@ -69,6 +69,8 @@ const BlogSection = () => {
                       <img
                         src={activity.mediaUrl}
                         alt={activity.mediaAlt}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     )}

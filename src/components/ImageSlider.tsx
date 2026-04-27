@@ -59,6 +59,8 @@ const ImageSlider = () => {
                     <img
                       src={slide.image}
                       alt={t(slide.titleKey)}
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
                       className="w-full h-96 md:h-[570px] object-cover"
                     />
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
