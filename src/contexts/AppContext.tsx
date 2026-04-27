@@ -235,32 +235,62 @@ const translations = {
   }
 };
 
+const LANGUAGE_KEY = 'language';
+const THEME_KEY = 'theme';
+
+const getInitialLanguage = (): Language => {
+  if (typeof window === 'undefined') return 'en';
+  const saved = localStorage.getItem(LANGUAGE_KEY);
+  if (saved === 'en' || saved === 'ar') return saved;
+  return 'en';
+};
+
+const getInitialTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'light';
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved === 'light' || saved === 'dark') return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
-  const [theme, setTheme] = useState<Theme>('light');
+  // Initialize from localStorage / system preference synchronously so the first
+  // paint already reflects the right theme — avoids a light-mode flash for
+  // dark-mode users.
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+
+  // Wrap setters so localStorage is written only when the user explicitly
+  // chooses. The OS-following listener below relies on this — it skips updates
+  // once a preference has been persisted.
+  const setLanguage = (lang: Language) => {
+    localStorage.setItem(LANGUAGE_KEY, lang);
+    setLanguageState(lang);
+  };
+  const setTheme = (next: Theme) => {
+    localStorage.setItem(THEME_KEY, next);
+    setThemeState(next);
+  };
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language;
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    
-    if (savedLanguage) setLanguage(savedLanguage);
-    if (savedTheme) setTheme(savedTheme);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('language', language);
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
   }, [language]);
 
   useEffect(() => {
-    localStorage.setItem('theme', theme);
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
+
+  // Follow OS theme changes only while the user hasn't made an explicit choice.
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (e: MediaQueryListEvent) => {
+      if (localStorage.getItem(THEME_KEY) === null) {
+        setThemeState(e.matches ? 'dark' : 'light');
+      }
+    };
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
+  }, []);
 
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations['en']] || key;
