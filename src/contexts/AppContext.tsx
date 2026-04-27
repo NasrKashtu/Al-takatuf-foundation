@@ -102,9 +102,7 @@ const translations = {
     allRightsReserved: "All rights reserved.",
     // Footer content
     footerContactInfo: "Contact Information",
-    footerPhone: "Phone: +1 (555) 123-4567",
-    footerEmail: "Email: info@altakathuf.org",
-    footerAddress: "Address: 123 Development Street, Community City, CC 12345",
+    footerLocation: "Eastern Municipality / Umm al Aranib, Libya",
     footerAbout: "About Altakathuf",
     footerAboutText: "A non-governmental, non-profit organization dedicated to empowering individuals and communities through innovative programs and sustainable development initiatives.",
     footerPrograms: "Our Programs",
@@ -216,9 +214,7 @@ const translations = {
     allRightsReserved: "جميع الحقوق محفوظة.",
     // Footer content
     footerContactInfo: "معلومات الاتصال",
-    footerPhone: "الهاتف: +1 (555) 123-4567",
-    footerEmail: "البريد الإلكتروني: info@altakathuf.org",
-    footerAddress: "العنوان: 123 شارع التنمية، مدينة المجتمع، CC 12345",
+    footerLocation: "بلدية الشرقية / أم الأرانب، ليبيا",
     footerAbout: "حول التكاثف",
     footerAboutText: "منظمة غير حكومية وغير هادفة للربح مكرسة لتمكين الأفراد والمجتمعات من خلال البرامج المبتكرة ومبادرات التنمية المستدامة.",
     footerPrograms: "برامجنا",

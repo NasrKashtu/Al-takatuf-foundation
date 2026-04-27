@@ -1,6 +1,9 @@
 import { useApp } from '@/contexts/AppContext';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
+const CONTACT_PHONE = '+218 92-0252670';
+const CONTACT_EMAIL = 'altakatef1@gmail.com';
+
 const Footer = () => {
   const { t } = useApp();
 
@@ -61,15 +64,26 @@ const Footer = () => {
             <div className="space-y-2 text-muted-foreground">
               <div className="flex items-center gap-2">
                 <MapPin size={18} className="text-primary shrink-0" />
-                <span>بلدية الشرقية/أم الأرانب</span>
+                <span>{t('footerLocation')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={18} className="text-primary shrink-0" />
-                <span>+218 92-0252670</span>
+                <a
+                  href={`tel:${CONTACT_PHONE.replace(/\s|-/g, '')}`}
+                  dir="ltr"
+                  className="hover:text-primary transition-colors"
+                >
+                  {CONTACT_PHONE}
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={18} className="text-primary shrink-0" />
-                <span>altakatef1@gmail.com</span>
+                <a
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="hover:text-primary transition-colors break-all"
+                >
+                  {CONTACT_EMAIL}
+                </a>
               </div>
             </div>
           </div>
