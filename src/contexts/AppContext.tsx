@@ -74,6 +74,11 @@ const translations = {
     altakathufCenter: "Al-Takathuf Center",
     variousNeighborhoods: "Various Neighborhoods",
     "Umm al Aranib": "Umm al Aranib",
+    // Map
+    mapLocationName: "Eastern Municipality / Umm al Aranib",
+    interactiveMap: "Interactive Map",
+    zoomIn: "Zoom in",
+    zoomOut: "Zoom out",
     // New sections - FAQ, Testimonials, About, Footer
     aboutUs: "About Us",
     aboutUsTitle: "Empowering Communities Through Action",
@@ -183,6 +188,11 @@ const translations = {
     mobileHealthUnit: "وحدة الصحة المتنقلة",
     altakathufCenter: "مركز التكاثف",
     variousNeighborhoods: "أحياء متنوعة",
+    // Map
+    mapLocationName: "بلدية الشرقية/أم الأرانب",
+    interactiveMap: "خريطة تفاعلية",
+    zoomIn: "تكبير",
+    zoomOut: "تصغير",
     // New sections - FAQ, Testimonials, About, Footer
     aboutUs: "من نحن",
     aboutUsTitle: "تمكين المجتمعات من خلال العمل",
