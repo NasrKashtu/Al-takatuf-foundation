@@ -17,7 +17,7 @@ const ContactSection = () => {
     e.preventDefault();
     setFormData({ name: '', email: '', message: '' });
     toast.success(
-      isRTL ? 'تم إرسال الرسالة بنجاح!' : 'Message sent successfully!'
+      isRTL ? 'تم إرسال رسالتك. شكراً لتواصلك.' : 'Thanks — we received your message.'
     );
   };
 

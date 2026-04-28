@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
   Calendar,
+  ChevronRight,
   ExternalLink,
+  Folder,
   LayoutDashboard,
   ListChecks,
   Lock,
   LogOut,
   Moon,
+  ShieldCheck,
+  Sparkles,
   Sun,
+  TrendingUp,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,6 +53,7 @@ const Admin = () => {
 // Login
 
 const LoginGate = ({ onSubmit }: { onSubmit: (pw: string) => boolean }) => {
+  const { t } = useApp();
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
@@ -60,58 +66,119 @@ const LoginGate = ({ onSubmit }: { onSubmit: (pw: string) => boolean }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-card border border-border rounded-xl shadow-md-soft p-8 space-y-6"
+    <div className="min-h-screen flex flex-col lg:flex-row bg-background">
+      {/* Hero panel — inline-start side */}
+      <aside
+        aria-hidden="true"
+        className="relative overflow-hidden lg:w-1/2 min-h-[280px] lg:min-h-screen bg-primary text-primary-foreground"
       >
-        <div className="flex flex-col items-center gap-3 text-center">
-          <div className="h-12 w-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-            <Lock size={22} />
+        <img
+          src="/images/Slider/Slider Image.png"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-30"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/70" />
+        <div className="absolute -top-32 -start-32 h-80 w-80 rounded-full bg-white/10 blur-3xl animate-pulse" />
+        <div
+          className="absolute -bottom-32 -end-32 h-96 w-96 rounded-full bg-secondary/30 blur-3xl animate-pulse"
+          style={{ animationDelay: '1.5s' }}
+        />
+
+        <div className="relative h-full flex flex-col justify-between p-8 sm:p-10 lg:p-14 min-h-[280px] lg:min-h-screen">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-white/15 backdrop-blur-sm ring-2 ring-white/25 overflow-hidden flex items-center justify-center">
+              <img src="/favicon.png" alt="" className="h-full w-full object-cover" />
+            </div>
+            <div className="leading-tight">
+              <p className="text-xs uppercase tracking-wider opacity-80">
+                {t('adminLoginEyebrow')}
+              </p>
+              <p className="font-semibold">{t('siteName')}</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-foreground">Admin</h1>
-            <p className="text-sm text-muted-foreground">
-              Enter the admin password to continue.
+
+          <div className="space-y-5 max-w-md py-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-3 py-1 text-xs ring-1 ring-white/20">
+              <Sparkles size={12} />
+              <span>{t('adminBrand')}</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
+              {t('adminWelcomeTitle')}
+            </h1>
+            <p className="text-base sm:text-lg text-primary-foreground/85 leading-relaxed">
+              {t('adminWelcomeDesc')}
             </p>
           </div>
+
+          <p className="text-xs text-primary-foreground/70">
+            {t('copyright')}
+          </p>
         </div>
+      </aside>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="admin-password" className="text-start block">
-            Password
-          </Label>
-          <Input
-            id="admin-password"
-            type="password"
-            autoFocus
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              if (error) setError(false);
-            }}
-            aria-invalid={error}
-            aria-describedby={error ? 'admin-error' : undefined}
-          />
-          {error && (
-            <p id="admin-error" className="text-sm text-destructive">
-              Incorrect password.
-            </p>
-          )}
-        </div>
-
-        <Button type="submit" className="w-full h-10">
-          Sign in
-        </Button>
-
-        <Link
-          to="/"
-          className="flex items-center justify-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      {/* Form panel */}
+      <main className="lg:w-1/2 flex items-center justify-center p-6 sm:p-10 lg:p-12">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-sm space-y-6"
+          aria-label={t('adminSignIn')}
         >
-          <ArrowLeft size={14} className="rtl:rotate-180" />
-          Back to site
-        </Link>
-      </form>
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              <ShieldCheck size={14} className="text-primary" />
+              <span>{t('adminLoginEyebrow')}</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
+              {t('adminSignIn')}
+            </h2>
+            <p className="text-sm text-muted-foreground">{t('adminLoginDesc')}</p>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="admin-password" className="text-start block">
+              {t('adminPassword')}
+            </Label>
+            <div className="relative">
+              <Lock
+                size={16}
+                className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+              />
+              <Input
+                id="admin-password"
+                type="password"
+                autoFocus
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (error) setError(false);
+                }}
+                aria-invalid={error}
+                aria-describedby={error ? 'admin-error' : undefined}
+                className="ps-9 h-11"
+              />
+            </div>
+            {error && (
+              <p id="admin-error" className="text-sm text-destructive">
+                {t('adminIncorrectPassword')}
+              </p>
+            )}
+          </div>
+
+          <Button type="submit" className="w-full h-11 text-base font-semibold">
+            {t('adminSignIn')}
+            <ChevronRight size={16} className="rtl:rotate-180" />
+          </Button>
+
+          <Link
+            to="/"
+            className="flex items-center justify-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft size={14} className="rtl:rotate-180" />
+            {t('adminBackToSite')}
+          </Link>
+        </form>
+      </main>
     </div>
   );
 };
@@ -119,32 +186,35 @@ const LoginGate = ({ onSubmit }: { onSubmit: (pw: string) => boolean }) => {
 // -----------------------------------------------------------------------------
 // Chrome
 
-const AdminHeader = ({ onLogout }: { onLogout: () => void }) => (
-  <header className="bg-card border-b border-border sticky top-0 z-20 backdrop-blur-sm bg-card/95">
-    <div className="container mx-auto px-4 h-14 flex items-center justify-between gap-4">
-      <div className="flex items-center gap-3 min-w-0">
-        <div className="h-8 w-8 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0">
-          <Lock size={16} />
+const AdminHeader = ({ onLogout }: { onLogout: () => void }) => {
+  const { t } = useApp();
+  return (
+    <header className="bg-card border-b border-border sticky top-0 z-20 backdrop-blur-sm bg-card/95">
+      <div className="container mx-auto px-4 h-14 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="h-8 w-8 rounded-md bg-primary/10 text-primary flex items-center justify-center shrink-0">
+            <Lock size={16} />
+          </div>
+          <span className="font-semibold text-foreground truncate">
+            {t('adminBrand')}
+          </span>
         </div>
-        <span className="font-semibold text-foreground truncate">
-          Altakathuf · Admin
-        </span>
+        <div className="flex items-center gap-2">
+          <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+            <Link to="/">
+              <ExternalLink size={14} />
+              {t('adminViewSite')}
+            </Link>
+          </Button>
+          <Button variant="outline" size="sm" onClick={onLogout}>
+            <LogOut size={14} />
+            <span className="hidden sm:inline">{t('adminLogout')}</span>
+          </Button>
+        </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
-          <Link to="/">
-            <ExternalLink size={14} />
-            View site
-          </Link>
-        </Button>
-        <Button variant="outline" size="sm" onClick={onLogout}>
-          <LogOut size={14} />
-          <span className="hidden sm:inline">Log out</span>
-        </Button>
-      </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 const Sidebar = ({
   tab,
@@ -153,14 +223,15 @@ const Sidebar = ({
   tab: Tab;
   onChange: (t: Tab) => void;
 }) => {
+  const { t } = useApp();
   const items: { id: Tab; label: string; icon: React.ElementType }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'activities', label: 'Activities', icon: ListChecks },
+    { id: 'dashboard', label: t('adminDashboard'), icon: LayoutDashboard },
+    { id: 'activities', label: t('adminActivities'), icon: ListChecks },
   ];
 
   return (
     <nav
-      aria-label="Admin sections"
+      aria-label={t('adminSectionsLabel')}
       className="bg-card border border-border rounded-lg p-2 h-max lg:sticky lg:top-20"
     >
       <ul className="flex lg:flex-col gap-1">
@@ -194,7 +265,7 @@ const Sidebar = ({
 
 const DashboardTab = () => {
   const { activities } = useActivities();
-  const { language, setLanguage, theme, setTheme } = useApp();
+  const { language, setLanguage, theme, setTheme, t } = useApp();
 
   const byCategory = CATEGORY_KEYS.map((key) => ({
     key,
@@ -208,66 +279,97 @@ const DashboardTab = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
+        <h1 className="text-2xl font-bold text-foreground">{t('adminDashboard')}</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Overview of the content currently rendered on the public site.
+          {t('adminDashboardDesc')}
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <StatCard label="Activities" value={activities.length} />
         <StatCard
-          label="Categories in use"
-          value={byCategory.filter((c) => c.count > 0).length}
+          label={t('adminActivities')}
+          value={activities.length}
+          icon={ListChecks}
+          tone="primary"
         />
         <StatCard
-          label="Most recent"
+          label={t('adminCategoriesInUse')}
+          value={byCategory.filter((c) => c.count > 0).length}
+          icon={Folder}
+          tone="emerald"
+        />
+        <StatCard
+          label={t('adminMostRecent')}
           value={recent[0]?.date ?? '—'}
+          icon={TrendingUp}
+          tone="amber"
           small
         />
       </div>
 
-      <section className="bg-card border border-border rounded-lg p-5">
-        <h2 className="font-semibold text-foreground mb-3">By category</h2>
-        <ul className="grid gap-2 sm:grid-cols-2">
-          {byCategory.map(({ key, count }) => (
-            <li
-              key={key}
-              className="flex items-center justify-between py-1.5 px-3 rounded-md hover:bg-muted/50"
-            >
-              <span className="flex items-center gap-2">
-                <span
-                  aria-hidden="true"
-                  className="w-2.5 h-2.5 rounded-full"
-                  style={{ backgroundColor: `hsl(var(--cat-${key}))` }}
-                />
-                <span className="text-sm text-foreground">
-                  {CATEGORY_LABELS[key].en}
-                </span>
-              </span>
-              <span className="text-sm font-semibold text-muted-foreground">
-                {count}
-              </span>
-            </li>
-          ))}
+      <section className="bg-card border border-border rounded-lg p-5 shadow-sm">
+        <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+          <Folder size={16} className="text-muted-foreground" />
+          {t('adminByCategory')}
+        </h2>
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {byCategory.map(({ key, count }) => {
+            const max = Math.max(1, ...byCategory.map((c) => c.count));
+            const pct = (count / max) * 100;
+            return (
+              <li key={key} className="space-y-1.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2 min-w-0">
+                    <span
+                      aria-hidden="true"
+                      className="w-2.5 h-2.5 rounded-full shrink-0"
+                      style={{ backgroundColor: `hsl(var(--cat-${key}))` }}
+                    />
+                    <span className="text-sm text-foreground truncate">
+                      {CATEGORY_LABELS[key][language]}
+                    </span>
+                  </span>
+                  <span className="text-sm font-semibold text-foreground tabular-nums">
+                    {count}
+                  </span>
+                </div>
+                <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{
+                      width: `${pct}%`,
+                      backgroundColor: `hsl(var(--cat-${key}))`,
+                    }}
+                  />
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-5">
-        <h2 className="font-semibold text-foreground mb-3">Recent activities</h2>
+      <section className="bg-card border border-border rounded-lg p-5 shadow-sm">
+        <h2 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+          <Calendar size={16} className="text-muted-foreground" />
+          {t('adminRecentActivities')}
+        </h2>
         {recent.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No activities yet.</p>
+          <p className="text-sm text-muted-foreground">{t('adminNoActivitiesYet')}</p>
         ) : (
           <ul className="divide-y divide-border">
             {recent.map((a) => (
               <li key={a.id} className="py-2.5 flex items-center gap-3">
-                <Calendar size={14} className="text-muted-foreground shrink-0" />
+                <span
+                  aria-hidden="true"
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ backgroundColor: `hsl(var(--cat-${a.category}))` }}
+                />
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-medium text-foreground truncate">
-                    {a.titleEn}
+                    {language === 'ar' ? a.titleAr : a.titleEn}
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    {a.date} · {CATEGORY_LABELS[a.category].en}
+                    {a.date} · {CATEGORY_LABELS[a.category][language]}
                   </div>
                 </div>
               </li>
@@ -276,10 +378,13 @@ const DashboardTab = () => {
         )}
       </section>
 
-      <section className="bg-card border border-border rounded-lg p-5">
-        <h2 className="font-semibold text-foreground mb-3">Preview controls</h2>
+      <section className="bg-card border border-border rounded-lg p-5 shadow-sm">
+        <h2 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+          <Sparkles size={16} className="text-muted-foreground" />
+          {t('adminPreviewControls')}
+        </h2>
         <p className="text-sm text-muted-foreground mb-3">
-          Switch the live site's language and theme without leaving admin.
+          {t('adminPreviewControlsDesc')}
         </p>
         <div className="flex flex-wrap gap-2">
           <Button
@@ -303,7 +408,7 @@ const DashboardTab = () => {
             onClick={() => setTheme('light')}
           >
             <Sun size={14} />
-            Light
+            {t('adminLight')}
           </Button>
           <Button
             variant={theme === 'dark' ? 'default' : 'outline'}
@@ -311,7 +416,7 @@ const DashboardTab = () => {
             onClick={() => setTheme('dark')}
           >
             <Moon size={14} />
-            Dark
+            {t('adminDark')}
           </Button>
         </div>
       </section>
@@ -319,36 +424,64 @@ const DashboardTab = () => {
   );
 };
 
-const ActivitiesTab = () => (
-  <div className="space-y-4">
-    <div>
-      <h1 className="text-2xl font-bold text-foreground">Activities</h1>
-      <p className="text-sm text-muted-foreground mt-1">
-        Create, edit, and delete the posts that appear in the "Activities &
-        Impact" section.
-      </p>
+const ActivitiesTab = () => {
+  const { t } = useApp();
+  return (
+    <div className="space-y-4">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">{t('adminActivities')}</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          {t('adminActivitiesDesc')}
+        </p>
+      </div>
+      <ActivitiesPanel />
     </div>
-    <ActivitiesPanel />
-  </div>
-);
+  );
+};
+
+type StatTone = 'primary' | 'emerald' | 'amber';
+
+const TONE_STYLES: Record<StatTone, { bg: string; text: string }> = {
+  primary: { bg: 'bg-primary/10', text: 'text-primary' },
+  emerald: { bg: 'bg-emerald-500/10', text: 'text-emerald-600 dark:text-emerald-400' },
+  amber: { bg: 'bg-amber-500/10', text: 'text-amber-600 dark:text-amber-400' },
+};
 
 const StatCard = ({
   label,
   value,
   small,
+  icon: Icon,
+  tone = 'primary',
 }: {
   label: string;
   value: string | number;
   small?: boolean;
-}) => (
-  <div className="bg-card border border-border rounded-lg p-5">
-    <div className="text-sm text-muted-foreground">{label}</div>
-    <div
-      className={`${small ? 'text-lg' : 'text-2xl'} font-bold text-foreground mt-1`}
-    >
-      {value}
+  icon?: React.ElementType;
+  tone?: StatTone;
+}) => {
+  const styles = TONE_STYLES[tone];
+  return (
+    <div className="bg-card border border-border rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="text-sm text-muted-foreground">{label}</div>
+          <div
+            className={`${small ? 'text-lg' : 'text-2xl'} font-bold text-foreground mt-1 truncate tabular-nums`}
+          >
+            {value}
+          </div>
+        </div>
+        {Icon && (
+          <div
+            className={`h-10 w-10 rounded-lg flex items-center justify-center shrink-0 ${styles.bg} ${styles.text}`}
+          >
+            <Icon size={18} />
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default Admin;

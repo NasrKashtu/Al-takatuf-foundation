@@ -33,9 +33,9 @@ const ProgramsSection = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {programs.map((program, index) => (
-            <div
+            <article
               key={index}
-              className="group hover-scale bg-card rounded-lg shadow-sm-soft hover:shadow-lg-soft overflow-hidden transition-all duration-300 border border-border flex flex-col"
+              className="group bg-card rounded-lg shadow-sm-soft hover:shadow-lg-soft overflow-hidden transition-shadow duration-300 border border-border flex flex-col"
             >
               <div className="h-48 bg-muted overflow-hidden">
                 <img
@@ -65,7 +65,7 @@ const ProgramsSection = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

@@ -39,11 +39,13 @@ import {
   CategoryKey,
 } from '@/lib/activities';
 import { useActivities } from '@/hooks/useActivities';
+import { useApp } from '@/contexts/AppContext';
 
 type SortKey = 'date-desc' | 'date-asc' | 'title-asc' | 'title-desc';
 
 const ActivitiesPanel = () => {
   const { activities, add, update, remove, resetToSeed } = useActivities();
+  const { language, t } = useApp();
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<CategoryKey | 'all'>('all');
   const [sort, setSort] = useState<SortKey>('date-desc');
@@ -96,10 +98,10 @@ const ActivitiesPanel = () => {
   const handleSubmit = (draft: ActivityDraft) => {
     if (editing) {
       update(editing.id, draft);
-      toast.success('Activity updated.');
+      toast.success(t('adminToastUpdated'));
     } else {
       add(draft);
-      toast.success('Activity created.');
+      toast.success(t('adminToastCreated'));
     }
     setFormOpen(false);
   };
@@ -107,15 +109,24 @@ const ActivitiesPanel = () => {
   const handleDelete = () => {
     if (!confirmDelete) return;
     remove(confirmDelete.id);
-    toast.success('Activity deleted.');
+    toast.success(t('adminToastDeleted'));
     setConfirmDelete(null);
   };
 
   const handleReset = () => {
     resetToSeed();
-    toast.success('Activities reset to seed data.');
+    toast.success(t('adminToastReset'));
     setConfirmReset(false);
   };
+
+  const countLabel =
+    filtered.length === activities.length
+      ? language === 'ar'
+        ? `${activities.length} نشاط`
+        : `${activities.length} activit${activities.length === 1 ? 'y' : 'ies'}`
+      : language === 'ar'
+        ? `${filtered.length} من ${activities.length} معروض`
+        : `${filtered.length} of ${activities.length} shown`;
 
   return (
     <div className="space-y-4">
@@ -129,7 +140,7 @@ const ActivitiesPanel = () => {
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search title or description…"
+            placeholder={t('adminSearchPlaceholder')}
             className="ps-9"
           />
         </div>
@@ -140,13 +151,13 @@ const ActivitiesPanel = () => {
             onValueChange={(v) => setCategoryFilter(v as CategoryKey | 'all')}
           >
             <SelectTrigger className="w-40">
-              <SelectValue placeholder="Category" />
+              <SelectValue placeholder={t('adminCategory')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All categories</SelectItem>
+              <SelectItem value="all">{t('adminAllCategories')}</SelectItem>
               {CATEGORY_KEYS.map((key) => (
                 <SelectItem key={key} value={key}>
-                  {CATEGORY_LABELS[key].en}
+                  {CATEGORY_LABELS[key][language]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -159,22 +170,22 @@ const ActivitiesPanel = () => {
             <SelectContent>
               <SelectItem value="date-desc">
                 <span className="inline-flex items-center gap-2">
-                  <CalendarDays size={14} /> Newest first
+                  <CalendarDays size={14} /> {t('adminNewestFirst')}
                 </span>
               </SelectItem>
               <SelectItem value="date-asc">
                 <span className="inline-flex items-center gap-2">
-                  <CalendarDays size={14} /> Oldest first
+                  <CalendarDays size={14} /> {t('adminOldestFirst')}
                 </span>
               </SelectItem>
               <SelectItem value="title-asc">
                 <span className="inline-flex items-center gap-2">
-                  <ArrowDownAZ size={14} /> Title A–Z
+                  <ArrowDownAZ size={14} /> {t('adminTitleAsc')}
                 </span>
               </SelectItem>
               <SelectItem value="title-desc">
                 <span className="inline-flex items-center gap-2">
-                  <ArrowUpAZ size={14} /> Title Z–A
+                  <ArrowUpAZ size={14} /> {t('adminTitleDesc')}
                 </span>
               </SelectItem>
             </SelectContent>
@@ -186,24 +197,20 @@ const ActivitiesPanel = () => {
             variant="outline"
             size="sm"
             onClick={() => setConfirmReset(true)}
-            title="Restore the original six seed activities"
+            title={t('adminResetTooltip')}
           >
             <RotateCcw size={14} />
-            Reset
+            {t('adminReset')}
           </Button>
           <Button onClick={openCreate}>
             <Plus size={16} />
-            New activity
+            {t('adminNewActivity')}
           </Button>
         </div>
       </div>
 
       {/* Result meta */}
-      <div className="text-sm text-muted-foreground">
-        {filtered.length === activities.length
-          ? `${activities.length} activit${activities.length === 1 ? 'y' : 'ies'}`
-          : `${filtered.length} of ${activities.length} shown`}
-      </div>
+      <div className="text-sm text-muted-foreground">{countLabel}</div>
 
       {/* List */}
       {filtered.length === 0 ? (
@@ -235,19 +242,19 @@ const ActivitiesPanel = () => {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete activity?</AlertDialogTitle>
+            <AlertDialogTitle>{t('adminDeleteConfirmTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              "{confirmDelete?.titleEn}" will be removed from the site. This
-              cannot be undone.
+              "{language === 'ar' ? confirmDelete?.titleAr : confirmDelete?.titleEn}"{' '}
+              {t('adminDeleteConfirmSuffix')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('adminCancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Delete
+              {t('adminDelete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -256,19 +263,18 @@ const ActivitiesPanel = () => {
       <AlertDialog open={confirmReset} onOpenChange={setConfirmReset}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Reset to seed data?</AlertDialogTitle>
+            <AlertDialogTitle>{t('adminResetConfirmTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Every activity will be replaced with the original six. Any
-              additions or edits you've made will be lost.
+              {t('adminResetConfirmDesc')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('adminCancel')}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleReset}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Reset
+              {t('adminReset')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -285,85 +291,91 @@ const ActivityRow = ({
   activity: Activity;
   onEdit: () => void;
   onDelete: () => void;
-}) => (
-  <article className="group bg-card border border-border rounded-lg p-3 flex items-center gap-4 hover:border-primary/40 transition-colors">
-    <div className="w-20 h-20 sm:w-24 sm:h-16 rounded-md bg-muted overflow-hidden shrink-0 relative">
-      {activity.mediaUrl ? (
-        <img
-          src={activity.mediaUrl}
-          alt={activity.mediaAlt || ''}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-      ) : (
-        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-          <ImageIcon size={18} />
-        </div>
-      )}
-      <div className="absolute bottom-0.5 end-0.5 bg-black/60 text-white rounded-full p-0.5">
-        {activity.mediaType === 'video' ? (
-          <Video size={10} />
+}) => {
+  const { language, t } = useApp();
+  return (
+    <article className="group bg-card border border-border rounded-lg p-3 flex items-center gap-4 hover:border-primary/40 transition-colors">
+      <div className="w-20 h-20 sm:w-24 sm:h-16 rounded-md bg-muted overflow-hidden shrink-0 relative">
+        {activity.mediaUrl ? (
+          <img
+            src={activity.mediaUrl}
+            alt={activity.mediaAlt || ''}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
         ) : (
-          <ImageIcon size={10} />
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+            <ImageIcon size={18} />
+          </div>
         )}
+        <div className="absolute bottom-0.5 end-0.5 bg-black/60 text-white rounded-full p-0.5">
+          {activity.mediaType === 'video' ? (
+            <Video size={10} />
+          ) : (
+            <ImageIcon size={10} />
+          )}
+        </div>
       </div>
-    </div>
 
-    <div className="flex-1 min-w-0">
-      <div className="flex items-center gap-2 mb-1">
-        <span
-          className="text-xs font-medium px-2 py-0.5 rounded-full border"
-          style={{
-            backgroundColor: `hsl(var(--cat-${activity.category}) / 0.12)`,
-            color: `hsl(var(--cat-${activity.category}))`,
-            borderColor: `hsl(var(--cat-${activity.category}) / 0.28)`,
-          }}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1">
+          <span
+            className="text-xs font-medium px-2 py-0.5 rounded-full border"
+            style={{
+              backgroundColor: `hsl(var(--cat-${activity.category}) / 0.12)`,
+              color: `hsl(var(--cat-${activity.category}))`,
+              borderColor: `hsl(var(--cat-${activity.category}) / 0.28)`,
+            }}
+          >
+            {CATEGORY_LABELS[activity.category][language]}
+          </span>
+          <span className="text-xs text-muted-foreground">{activity.date}</span>
+        </div>
+        <h3 className="font-semibold text-foreground text-start line-clamp-1" dir="ltr">
+          {activity.titleEn}
+        </h3>
+        <p className="text-sm text-muted-foreground text-start line-clamp-1" dir="rtl">
+          {activity.titleAr}
+        </p>
+      </div>
+
+      <div className="flex items-center gap-1 shrink-0">
+        <Button variant="ghost" size="sm" onClick={onEdit} aria-label={t('adminEditAria')}>
+          <Pencil size={15} />
+          <span className="hidden sm:inline">{t('adminEdit')}</span>
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onDelete}
+          aria-label={t('adminDeleteAria')}
+          className="text-destructive hover:text-destructive hover:bg-destructive/10"
         >
-          {CATEGORY_LABELS[activity.category].en}
-        </span>
-        <span className="text-xs text-muted-foreground">{activity.date}</span>
+          <Trash2 size={15} />
+          <span className="hidden sm:inline">{t('adminDelete')}</span>
+        </Button>
       </div>
-      <h3 className="font-semibold text-foreground text-start line-clamp-1">
-        {activity.titleEn}
-      </h3>
-      <p className="text-sm text-muted-foreground text-start line-clamp-1" dir="rtl">
-        {activity.titleAr}
+    </article>
+  );
+};
+
+const EmptyState = ({ onCreate }: { onCreate: () => void }) => {
+  const { t } = useApp();
+  return (
+    <div className="bg-card border border-dashed border-border rounded-lg py-14 text-center">
+      <div className="mx-auto h-12 w-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-3">
+        <ImageIcon size={20} />
+      </div>
+      <h3 className="font-semibold text-foreground">{t('adminNoActivitiesMatch')}</h3>
+      <p className="text-sm text-muted-foreground mt-1">
+        {t('adminNoActivitiesMatchDesc')}
       </p>
-    </div>
-
-    <div className="flex items-center gap-1 shrink-0">
-      <Button variant="ghost" size="sm" onClick={onEdit} aria-label="Edit activity">
-        <Pencil size={15} />
-        <span className="hidden sm:inline">Edit</span>
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={onDelete}
-        aria-label="Delete activity"
-        className="text-destructive hover:text-destructive hover:bg-destructive/10"
-      >
-        <Trash2 size={15} />
-        <span className="hidden sm:inline">Delete</span>
+      <Button className="mt-4" onClick={onCreate}>
+        <Plus size={16} />
+        {t('adminNewActivity')}
       </Button>
     </div>
-  </article>
-);
-
-const EmptyState = ({ onCreate }: { onCreate: () => void }) => (
-  <div className="bg-card border border-dashed border-border rounded-lg py-14 text-center">
-    <div className="mx-auto h-12 w-12 rounded-full bg-muted flex items-center justify-center text-muted-foreground mb-3">
-      <ImageIcon size={20} />
-    </div>
-    <h3 className="font-semibold text-foreground">No activities match</h3>
-    <p className="text-sm text-muted-foreground mt-1">
-      Try clearing filters, or add a new activity.
-    </p>
-    <Button className="mt-4" onClick={onCreate}>
-      <Plus size={16} />
-      New activity
-    </Button>
-  </div>
-);
+  );
+};
 
 export default ActivitiesPanel;

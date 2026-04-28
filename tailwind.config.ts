@@ -25,7 +25,7 @@ export default {
 		extend: {
 			fontFamily: {
 				sans: [
-					'Inter',
+					'Plus Jakarta Sans',
 					'system-ui',
 					'-apple-system',
 					'Segoe UI',
@@ -34,7 +34,7 @@ export default {
 				],
 				arabic: [
 					'IBM Plex Sans Arabic',
-					'Inter',
+					'Plus Jakarta Sans',
 					'system-ui',
 					'sans-serif',
 				],

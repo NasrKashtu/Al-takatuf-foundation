@@ -162,8 +162,8 @@
   /* Arabic-aware font switching */
   html[lang="ar"] body,
   [dir="rtl"] body {
-    font-family: "IBM Plex Sans Arabic", "Inter", system-ui, -apple-system,
-      "Segoe UI", sans-serif;
+    font-family: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui,
+      -apple-system, "Segoe UI", sans-serif;
   }
 
   /* Visible focus ring on everything keyboard-focusable.
@@ -174,12 +174,19 @@
     border-radius: 4px;
   }
 
-  /* Heading defaults — intentional weight + tracking at display sizes */
+  /* Heading defaults — intentional weight + tracking at display sizes.
+     `text-wrap: balance` prevents single-word orphans on narrow viewports. */
   h1,
   h2,
   h3,
   h4 {
     @apply font-semibold tracking-tight text-foreground;
+    text-wrap: balance;
+  }
+
+  /* Body paragraphs read better without orphan words on the last line. */
+  p {
+    text-wrap: pretty;
   }
 }
 

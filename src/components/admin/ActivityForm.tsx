@@ -27,6 +27,7 @@ import {
   MediaType,
   newActivity,
 } from '@/lib/activities';
+import { useApp } from '@/contexts/AppContext';
 
 export type ActivityDraft = Omit<Activity, 'id' | 'createdAt' | 'updatedAt'>;
 
@@ -39,6 +40,7 @@ interface Props {
 }
 
 const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
+  const { language, t } = useApp();
   const [draft, setDraft] = useState<ActivityDraft>(() =>
     initial ? toDraft(initial) : newActivity(),
   );
@@ -53,11 +55,11 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!draft.titleEn.trim() || !draft.titleAr.trim()) {
-      toast.error('Both English and Arabic titles are required.');
+      toast.error(t('adminToastTitleRequired'));
       return;
     }
     if (!draft.descEn.trim() || !draft.descAr.trim()) {
-      toast.error('Both English and Arabic descriptions are required.');
+      toast.error(t('adminToastDescRequired'));
       return;
     }
     onSubmit(draft);
@@ -69,24 +71,25 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit activity' : 'New activity'}</DialogTitle>
+          <DialogTitle>{isEdit ? t('adminFormEditTitle') : t('adminFormNewTitle')}</DialogTitle>
           <DialogDescription>
-            All fields display on the public site. Both languages are required.
+            {t('adminFormDesc')}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Title (English)" htmlFor="titleEn">
+            <Field label={t('adminFormTitleEn')} htmlFor="titleEn">
               <Input
                 id="titleEn"
                 value={draft.titleEn}
                 onChange={(e) => set('titleEn', e.target.value)}
                 placeholder="Voter Card Awareness Campaign"
+                dir="ltr"
                 required
               />
             </Field>
-            <Field label="Title (العربية)" htmlFor="titleAr">
+            <Field label={t('adminFormTitleAr')} htmlFor="titleAr">
               <Input
                 id="titleAr"
                 value={draft.titleAr}
@@ -99,16 +102,17 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Description (English)" htmlFor="descEn">
+            <Field label={t('adminFormDescEn')} htmlFor="descEn">
               <Textarea
                 id="descEn"
                 value={draft.descEn}
                 onChange={(e) => set('descEn', e.target.value)}
                 rows={4}
+                dir="ltr"
                 required
               />
             </Field>
-            <Field label="Description (العربية)" htmlFor="descAr">
+            <Field label={t('adminFormDescAr')} htmlFor="descAr">
               <Textarea
                 id="descAr"
                 value={draft.descAr}
@@ -121,7 +125,7 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            <Field label="Date" htmlFor="date">
+            <Field label={t('adminFormDate')} htmlFor="date">
               <Input
                 id="date"
                 type="date"
@@ -130,7 +134,7 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
                 required
               />
             </Field>
-            <Field label="Category" htmlFor="category">
+            <Field label={t('adminFormCategory')} htmlFor="category">
               <Select
                 value={draft.category}
                 onValueChange={(v) => set('category', v as CategoryKey)}
@@ -141,13 +145,13 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
                 <SelectContent>
                   {CATEGORY_KEYS.map((key) => (
                     <SelectItem key={key} value={key}>
-                      {CATEGORY_LABELS[key].en}
+                      {CATEGORY_LABELS[key][language]}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </Field>
-            <Field label="Media type" htmlFor="mediaType">
+            <Field label={t('adminFormMediaType')} htmlFor="mediaType">
               <Select
                 value={draft.mediaType}
                 onValueChange={(v) => set('mediaType', v as MediaType)}
@@ -156,30 +160,31 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="image">Image</SelectItem>
-                  <SelectItem value="video">Video</SelectItem>
+                  <SelectItem value="image">{t('adminFormImage')}</SelectItem>
+                  <SelectItem value="video">{t('adminFormVideo')}</SelectItem>
                 </SelectContent>
               </Select>
             </Field>
           </div>
 
           <Field
-            label="Image URL"
+            label={t('adminFormImageUrl')}
             htmlFor="mediaUrl"
-            hint="Path under /public or an absolute URL."
+            hint={t('adminFormImageUrlHint')}
           >
             <Input
               id="mediaUrl"
               value={draft.mediaUrl}
               onChange={(e) => set('mediaUrl', e.target.value)}
               placeholder="/images/BlogSection/example.png"
+              dir="ltr"
             />
           </Field>
 
           <Field
-            label="Image alt text"
+            label={t('adminFormImageAlt')}
             htmlFor="mediaAlt"
-            hint="Shown to screen readers; describe the image."
+            hint={t('adminFormImageAltHint')}
           >
             <Input
               id="mediaAlt"
@@ -190,15 +195,16 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
           </Field>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Location (English)" htmlFor="locationEn">
+            <Field label={t('adminFormLocationEn')} htmlFor="locationEn">
               <Input
                 id="locationEn"
                 value={draft.locationEn}
                 onChange={(e) => set('locationEn', e.target.value)}
                 placeholder="Umm al Aranib"
+                dir="ltr"
               />
             </Field>
-            <Field label="Location (العربية)" htmlFor="locationAr">
+            <Field label={t('adminFormLocationAr')} htmlFor="locationAr">
               <Input
                 id="locationAr"
                 value={draft.locationAr}
@@ -210,9 +216,9 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
           </div>
 
           <Field
-            label="Read-more link"
+            label={t('adminFormLink')}
             htmlFor="link"
-            hint="External URL opened in a new tab."
+            hint={t('adminFormLinkHint')}
           >
             <Input
               id="link"
@@ -220,14 +226,15 @@ const ActivityForm = ({ open, onOpenChange, initial, onSubmit }: Props) => {
               value={draft.link}
               onChange={(e) => set('link', e.target.value)}
               placeholder="https://www.facebook.com/..."
+              dir="ltr"
             />
           </Field>
 
           <DialogFooter className="gap-2 sm:gap-2">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('adminCancel')}
             </Button>
-            <Button type="submit">{isEdit ? 'Save changes' : 'Create activity'}</Button>
+            <Button type="submit">{isEdit ? t('adminSaveChanges') : t('adminCreateActivity')}</Button>
           </DialogFooter>
         </form>
       </DialogContent>
