@@ -3,11 +3,13 @@ import { Calendar, Video, Image, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useApp } from '@/contexts/AppContext';
 import { useActivities } from '@/hooks/useActivities';
+import { useReveal } from '@/hooks/useReveal';
 import { CATEGORY_LABELS, type CategoryKey } from '@/lib/activities';
 
 const BlogSection = () => {
   const { t, language } = useApp();
   const { activities } = useActivities();
+  const reveal = useReveal<HTMLDivElement>();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -30,13 +32,13 @@ const BlogSection = () => {
   };
 
   return (
-    <section id="blog" className="py-16 bg-muted/40">
-      <div className="container mx-auto px-4">
+    <section id="blog" className="py-24 md:py-28 bg-muted/40">
+      <div ref={reveal.ref} className={`container mx-auto px-4 ${reveal.className}`}>
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             {t('blog')}
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in">
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             {t('blogDescription')}
           </p>
         </div>
@@ -48,7 +50,7 @@ const BlogSection = () => {
               : 'No activities yet.'}
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 stagger-children">
             {activities.map((activity, index) => {
               const title = language === 'ar' ? activity.titleAr : activity.titleEn;
               const description =
@@ -61,8 +63,8 @@ const BlogSection = () => {
               return (
                 <Card
                   key={activity.id}
-                  className="hover-scale bg-card border border-border shadow-sm-soft hover:shadow-lg-soft overflow-hidden animate-fade-in group transition-shadow flex flex-col"
-                  style={{ animationDelay: `${index * 0.08}s` }}
+                  style={{ '--i': index } as React.CSSProperties}
+                  className="bg-card border border-border shadow-sm-soft hover:shadow-lg-soft overflow-hidden group transition-shadow flex flex-col"
                 >
                   <div className="relative aspect-video overflow-hidden bg-muted">
                     {activity.mediaUrl && (
@@ -71,7 +73,7 @@ const BlogSection = () => {
                         alt={activity.mediaAlt}
                         loading="lazy"
                         decoding="async"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-cover ken-burns"
                       />
                     )}
                     <div className="absolute top-3 end-3">
@@ -140,10 +142,15 @@ const BlogSection = () => {
             href="https://www.facebook.com/profile.php?id=61574523478564"
             target="_blank"
             rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1 ps-7 pe-2 h-14 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-300 font-semibold shadow-md-soft hover:shadow-lg-soft"
           >
-            <button className="bg-primary text-primary-foreground px-8 py-3 rounded-full hover:bg-primary/90 transition-colors duration-300 font-medium animate-fade-in">
-              {t('viewAllActivities')}
-            </button>
+            <span>{t('viewAllActivities')}</span>
+            <span
+              aria-hidden="true"
+              className="ms-1 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary-foreground/15 ring-1 ring-primary-foreground/15 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+            >
+              <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+            </span>
           </a>
         </div>
       </div>

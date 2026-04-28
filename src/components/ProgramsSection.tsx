@@ -1,7 +1,9 @@
 import { useApp } from '@/contexts/AppContext';
+import { useReveal } from '@/hooks/useReveal';
 
 const ProgramsSection = () => {
   const { t } = useApp();
+  const reveal = useReveal<HTMLDivElement>();
 
   const programs = [
     {
@@ -25,17 +27,18 @@ const ProgramsSection = () => {
   ];
 
   return (
-    <section id="programs" className="py-16 bg-background">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12 animate-fade-in">
+    <section id="programs" className="py-24 md:py-28 bg-background">
+      <div ref={reveal.ref} className={`container mx-auto px-4 ${reveal.className}`}>
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
           {t('programs')}
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 stagger-children">
           {programs.map((program, index) => (
             <article
               key={index}
-              className="group bg-card rounded-lg shadow-sm-soft hover:shadow-lg-soft overflow-hidden transition-shadow duration-300 border border-border flex flex-col"
+              style={{ '--i': index } as React.CSSProperties}
+              className="group bg-card rounded-2xl shadow-sm-soft hover:shadow-lg-soft overflow-hidden transition-shadow duration-300 border border-border flex flex-col"
             >
               <div className="h-48 bg-muted overflow-hidden">
                 <img
@@ -43,7 +46,7 @@ const ProgramsSection = () => {
                   alt={program.title}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center ken-burns"
                 />
               </div>
               <div className="p-6 flex flex-col flex-grow h-64">

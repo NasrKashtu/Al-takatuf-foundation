@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import { Button } from '@/components/ui/button';
 import LanguageThemeSwitcher from './LanguageThemeSwitcher';
@@ -24,9 +23,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // +100 pushes the "detection line" below the header so active-section
-      // flips around the heading, not the top edge of the section.
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 120;
       setIsScrolled(window.scrollY > 8);
 
       for (const item of NAV_ITEMS) {
@@ -50,50 +47,66 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll while the fullscreen mobile menu is open.
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [isMenuOpen]);
+
   const scrollToSection = (sectionId: string) => {
-    // scroll-margin-top: 4rem in index.css handles the offset under the header.
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
   };
 
   const navButtonClass = (section: string) => {
-    const base = `relative px-3 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${focusRing}`;
-    if (activeSection === section) {
-      return `${base} text-primary`;
-    }
-    return `${base} text-foreground/70 hover:text-foreground`;
+    const base = `relative px-3.5 py-1.5 text-sm font-medium rounded-full transition-colors whitespace-nowrap ${focusRing}`;
+    return activeSection === section
+      ? `${base} bg-primary/10 text-primary`
+      : `${base} text-foreground/70 hover:text-foreground hover:bg-foreground/5`;
   };
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-background/90 backdrop-blur-md border-b border-border shadow-sm-soft'
-          : 'bg-background/60 backdrop-blur-sm'
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 gap-4">
-          {/* Logo — logical start */}
+    <>
+      {/* Floating pill header — detached from the top edge, glass surface,
+          shadow lifts on scroll. z-50 so the morphing hamburger stays above
+          the open mobile menu (which is z-40). */}
+      <header
+        className="fixed top-3 sm:top-4 inset-x-0 z-50 flex justify-center pointer-events-none px-3"
+        aria-label="Site header"
+      >
+        <div
+          className={`pointer-events-auto flex items-center gap-2 sm:gap-3 h-14 ps-2 pe-1.5 rounded-full
+            bg-background/70 dark:bg-background/60 backdrop-blur-xl
+            ring-1 ring-border/70 dark:ring-border/40
+            transition-shadow duration-300
+            ${isScrolled ? 'shadow-md-soft' : 'shadow-sm-soft'}`}
+        >
+          {/* Brand */}
           <button
             onClick={() => scrollToSection('home')}
-            className={`flex items-center gap-3 text-base sm:text-lg font-bold text-foreground hover:text-primary transition-colors rounded-md ${focusRing}`}
+            className={`flex items-center gap-2.5 ps-2 pe-3 h-11 rounded-full text-sm font-semibold text-foreground hover:bg-foreground/5 transition-colors ${focusRing}`}
             aria-label={t('siteName')}
           >
-            <div className="w-9 h-9 flex items-center justify-center rounded-full overflow-hidden ring-2 ring-primary/10">
+            <span className="w-8 h-8 flex items-center justify-center rounded-full overflow-hidden ring-1 ring-primary/20">
               <img
                 src="/favicon.png"
                 alt=""
                 className="w-full h-full object-cover"
               />
-            </div>
-            <span className="hidden sm:inline">{t('siteName')}</span>
+            </span>
+            <span className="hidden sm:inline truncate max-w-[12rem]">
+              {t('siteName')}
+            </span>
           </button>
 
           {/* Desktop nav — middle */}
           <nav
             aria-label="Primary"
-            className="hidden lg:flex items-center gap-1"
+            className="hidden lg:flex items-center gap-0.5 px-1 border-s border-border/60 ms-1 ps-2"
           >
             {NAV_ITEMS.map((item) => (
               <button
@@ -103,71 +116,80 @@ const Header = () => {
                 aria-current={activeSection === item.id ? 'page' : undefined}
               >
                 {t(item.label)}
-                {activeSection === item.id && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-primary"
-                  />
-                )}
               </button>
             ))}
           </nav>
 
           {/* End actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 ms-auto ps-1 sm:ps-2 sm:border-s border-border/60">
+            <LanguageThemeSwitcher />
             <Button
               onClick={() => scrollToSection('contact')}
               size="sm"
-              className="hidden sm:inline-flex h-9"
+              className="hidden sm:inline-flex h-9 rounded-full px-4"
             >
               {t('getInvolved')}
             </Button>
-            <LanguageThemeSwitcher />
             <button
-              className={`lg:hidden p-2 rounded-md text-foreground hover:bg-muted transition-colors ${focusRing}`}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              type="button"
+              onClick={() => setIsMenuOpen((o) => !o)}
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-nav"
+              className={`hamburger lg:hidden h-10 w-10 rounded-full text-foreground hover:bg-foreground/5 transition-colors ${focusRing} ${isMenuOpen ? 'is-open' : ''}`}
             >
-              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              <span aria-hidden="true" />
+              <span aria-hidden="true" />
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile nav */}
-        {isMenuOpen && (
-          <nav
-            id="mobile-nav"
-            aria-label="Primary"
-            className="lg:hidden border-t border-border py-3 animate-fade-in"
-          >
-            <div className="flex flex-col gap-1">
-              {NAV_ITEMS.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  aria-current={activeSection === item.id ? 'page' : undefined}
-                  className={`${
-                    activeSection === item.id
-                      ? 'bg-primary/10 text-primary'
-                      : 'text-foreground/80 hover:bg-muted'
-                  } px-4 py-2.5 rounded-md text-sm font-medium text-start transition-colors ${focusRing}`}
-                >
-                  {t(item.label)}
-                </button>
-              ))}
+      {/* Mobile fullscreen menu — close affordance is the morphing hamburger
+          in the floating pill above. z-40 so the pill (z-50) stays on top. */}
+      {isMenuOpen && (
+        <div
+          id="mobile-nav"
+          className="fixed inset-0 z-40 lg:hidden bg-background/95 backdrop-blur-xl animate-fade-in"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('siteName')}
+        >
+          <div className="container mx-auto px-4 h-full flex flex-col justify-center">
+            <nav
+              aria-label="Primary"
+              className="flex flex-col gap-1"
+            >
+              {NAV_ITEMS.map((item, i) => {
+                const active = activeSection === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    aria-current={active ? 'page' : undefined}
+                    className={`text-start text-3xl sm:text-4xl font-bold py-3 px-2 rounded-md transition-colors duration-300 ${
+                      active ? 'text-primary' : 'text-foreground/85 hover:text-foreground'
+                    } ${focusRing}`}
+                    style={{
+                      animation: 'fadeIn 500ms cubic-bezier(0.32,0.72,0,1) backwards',
+                      animationDelay: `${80 + i * 60}ms`,
+                    }}
+                  >
+                    {t(item.label)}
+                  </button>
+                );
+              })}
               <Button
                 onClick={() => scrollToSection('contact')}
-                className="mt-2 w-full h-11 text-base font-semibold sm:hidden"
+                className="mt-8 h-12 text-base font-semibold rounded-full self-start px-7"
               >
                 {t('getInvolved')}
               </Button>
-            </div>
-          </nav>
-        )}
-      </div>
-    </header>
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

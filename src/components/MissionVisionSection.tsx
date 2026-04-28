@@ -1,16 +1,21 @@
 import { useApp } from '@/contexts/AppContext';
+import { useReveal } from '@/hooks/useReveal';
 
 const MissionVisionSection = () => {
   const { t } = useApp();
+  const reveal = useReveal<HTMLDivElement>();
 
   return (
-    <section id="mission-vision" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="mission-vision" className="py-24 md:py-28 bg-background">
+      <div ref={reveal.ref} className={`container mx-auto px-4 ${reveal.className}`}>
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-foreground text-center">
           {t('ourMissionAndVision')}
         </h2>
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div className="bg-muted/40 p-8 rounded-lg border border-border shadow-sm-soft animate-fade-in">
+        <div className="grid md:grid-cols-2 gap-8 items-start stagger-children">
+          <div
+            style={{ '--i': 0 } as React.CSSProperties}
+            className="bg-muted/40 p-8 rounded-2xl border border-border shadow-sm-soft hover:shadow-md-soft transition-shadow duration-300"
+          >
             <h3 className="text-2xl md:text-3xl font-bold mb-4 text-primary">
               {t('ourMission')}
             </h3>
@@ -18,7 +23,10 @@ const MissionVisionSection = () => {
               {t('missionText')}
             </p>
           </div>
-          <div className="bg-muted/40 p-8 rounded-lg border border-border shadow-sm-soft animate-fade-in">
+          <div
+            style={{ '--i': 1 } as React.CSSProperties}
+            className="bg-muted/40 p-8 rounded-2xl border border-border shadow-sm-soft hover:shadow-md-soft transition-shadow duration-300"
+          >
             <h3 className="text-2xl md:text-3xl font-bold mb-4 text-primary">
               {t('ourVision')}
             </h3>

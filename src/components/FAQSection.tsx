@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
+import { useReveal } from '@/hooks/useReveal';
 
 const FAQSection = () => {
   const { t } = useApp();
   const [openIndex, setOpenIndex] = useState(0);
+  const reveal = useReveal<HTMLDivElement>();
 
   const faqs = [
     { question: t('faqQ1'), answer: t('faqA1') },
@@ -13,9 +15,9 @@ const FAQSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted/40">
-      <div className="container mx-auto px-4 text-start">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12 animate-fade-in">
+    <section className="py-24 md:py-28 bg-muted/40">
+      <div ref={reveal.ref} className={`container mx-auto px-4 text-start ${reveal.className}`}>
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
           {t('faq')}
         </h2>
 

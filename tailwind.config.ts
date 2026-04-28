@@ -45,9 +45,14 @@ export default {
 				'display-lg': ['5rem', { lineHeight: '1.05', letterSpacing: '-0.03em', fontWeight: '800' }],
 			},
 			boxShadow: {
-				'sm-soft': '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
-				'md-soft': '0 4px 12px rgba(0,0,0,0.08)',
-				'lg-soft': '0 12px 24px rgba(0,0,0,0.10)',
+				/* Brand-tinted shadows — pull from --brand so they shift with theme.
+				   Replaces generic black low-opacity shadows for warmer depth. */
+				'sm-soft':
+					'0 1px 3px hsl(var(--brand) / 0.10), 0 1px 2px hsl(var(--brand) / 0.06)',
+				'md-soft':
+					'0 4px 16px hsl(var(--brand) / 0.10), 0 2px 4px hsl(var(--brand) / 0.05)',
+				'lg-soft':
+					'0 16px 32px hsl(var(--brand) / 0.12), 0 4px 8px hsl(var(--brand) / 0.06)',
 			},
 			colors: {
 				success: {

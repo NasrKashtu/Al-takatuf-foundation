@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Facebook, Linkedin } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
+import { useReveal } from '@/hooks/useReveal';
 import InteractiveMap from './InteractiveMap';
 import { toast } from 'sonner';
 
 const ContactSection = () => {
   const { t, language } = useApp();
   const isRTL = language === 'ar';
+  const reveal = useReveal<HTMLDivElement>();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -34,9 +36,9 @@ const ContactSection = () => {
     'bg-primary text-primary-foreground p-3 rounded-full hover:bg-primary/90 transition-colors duration-300 hover:scale-105';
 
   return (
-    <section id="contact" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-4 animate-fade-in">
+    <section id="contact" className="py-24 md:py-28 bg-background">
+      <div ref={reveal.ref} className={`container mx-auto px-4 ${reveal.className}`}>
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-4">
           {t('contactUs')}
         </h2>
         <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
@@ -45,7 +47,7 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="animate-fade-in">
+          <div>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
@@ -113,7 +115,7 @@ const ContactSection = () => {
           </div>
 
           {/* Map and Social Media */}
-          <div className="animate-fade-in">
+          <div>
             <InteractiveMap />
 
             <div className="flex gap-4 justify-center mt-6">
