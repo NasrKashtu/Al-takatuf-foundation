@@ -9,10 +9,12 @@ import MissionVisionSection from '@/components/MissionVisionSection';
 import AboutSection from '@/components/AboutSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 const Index = () => {
   return (
     <div className="min-h-screen w-full bg-background text-foreground">
+      <SEO path="/" />
       <Header />
       <HeroSection />
       <ImageSlider />

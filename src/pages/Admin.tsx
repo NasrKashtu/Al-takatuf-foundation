@@ -24,6 +24,7 @@ import { useApp } from '@/contexts/AppContext';
 import { useActivities } from '@/hooks/useActivities';
 import { CATEGORY_KEYS, CATEGORY_LABELS } from '@/lib/activities';
 import ActivitiesPanel from '@/components/admin/ActivitiesPanel';
+import SEO from '@/components/SEO';
 
 type Tab = 'dashboard' | 'activities';
 
@@ -31,10 +32,17 @@ const Admin = () => {
   const { authed, login, logout } = useAdminAuth();
   const [tab, setTab] = useState<Tab>('dashboard');
 
-  if (!authed) return <LoginGate onSubmit={login} />;
+  if (!authed)
+    return (
+      <>
+        <SEO title="Admin" path="/admin" noindex />
+        <LoginGate onSubmit={login} />
+      </>
+    );
 
   return (
     <div className="min-h-screen bg-muted/40">
+      <SEO title="Admin" path="/admin" noindex />
       <AdminHeader onLogout={logout} />
       <div className="container mx-auto px-4 py-6 lg:py-8">
         <div className="grid lg:grid-cols-[220px_1fr] gap-6">
