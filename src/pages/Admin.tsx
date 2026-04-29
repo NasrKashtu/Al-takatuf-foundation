@@ -3,53 +3,76 @@ import { Link } from 'react-router-dom';
 import {
   ArrowLeft,
   Calendar,
-  ChevronRight,
   ExternalLink,
   Folder,
   LayoutDashboard,
   ListChecks,
+  Loader2,
   Lock,
   LogOut,
   Moon,
+  Settings as SettingsIcon,
+  ShieldAlert,
   ShieldCheck,
   Sparkles,
   Sun,
   TrendingUp,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { useApp } from '@/contexts/AppContext';
 import { useActivities } from '@/hooks/useActivities';
 import { CATEGORY_KEYS, CATEGORY_LABELS } from '@/lib/activities';
 import ActivitiesPanel from '@/components/admin/ActivitiesPanel';
+import SettingsPanel from '@/components/admin/SettingsPanel';
 import SEO from '@/components/SEO';
 
-type Tab = 'dashboard' | 'activities';
+type Tab = 'dashboard' | 'activities' | 'settings';
 
 const Admin = () => {
-  const { authed, login, logout } = useAdminAuth();
+  const auth = useAdminAuth();
   const [tab, setTab] = useState<Tab>('dashboard');
 
-  if (!authed)
+  if (auth.status === 'loading')
     return (
       <>
         <SEO title="Admin" path="/admin" noindex />
-        <LoginGate onSubmit={login} />
+        <LoadingGate />
+      </>
+    );
+  if (auth.status === 'misconfigured')
+    return (
+      <>
+        <SEO title="Admin" path="/admin" noindex />
+        <MisconfiguredGate />
+      </>
+    );
+  if (auth.status === 'signed_out')
+    return (
+      <>
+        <SEO title="Admin" path="/admin" noindex />
+        <LoginGate onGoogle={auth.signInWithGoogle} />
+      </>
+    );
+  if (auth.status === 'not_allowlisted')
+    return (
+      <>
+        <SEO title="Admin" path="/admin" noindex />
+        <NotAllowlistedGate email={auth.email ?? ''} onSignOut={auth.signOut} />
       </>
     );
 
   return (
     <div className="min-h-screen bg-muted/40">
       <SEO title="Admin" path="/admin" noindex />
-      <AdminHeader onLogout={logout} />
+      <AdminHeader email={auth.email ?? ''} onLogout={auth.signOut} />
       <div className="container mx-auto px-4 py-6 lg:py-8">
         <div className="grid lg:grid-cols-[220px_1fr] gap-6">
           <Sidebar tab={tab} onChange={setTab} />
           <main className="min-w-0">
             {tab === 'dashboard' && <DashboardTab />}
             {tab === 'activities' && <ActivitiesTab />}
+            {tab === 'settings' && <SettingsTab />}
           </main>
         </div>
       </div>
@@ -58,24 +81,33 @@ const Admin = () => {
 };
 
 // -----------------------------------------------------------------------------
-// Login
+// Gates
 
-const LoginGate = ({ onSubmit }: { onSubmit: (pw: string) => boolean }) => {
+const LoadingGate = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <Loader2 className="h-6 w-6 animate-spin text-primary" />
+  </div>
+);
+
+const MisconfiguredGate = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background px-6">
+    <div className="max-w-md text-center space-y-3">
+      <ShieldAlert className="mx-auto h-10 w-10 text-amber-500" />
+      <h1 className="text-2xl font-bold text-foreground">Auth not configured</h1>
+      <p className="text-sm text-muted-foreground">
+        Set <code className="font-mono">VITE_SUPABASE_URL</code> and{' '}
+        <code className="font-mono">VITE_SUPABASE_ANON_KEY</code> in the deploy
+        environment, then redeploy. See <code className="font-mono">.env.example</code>.
+      </p>
+    </div>
+  </div>
+);
+
+const LoginGate = ({ onGoogle }: { onGoogle: () => void | Promise<void> }) => {
   const { t } = useApp();
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!onSubmit(password)) {
-      setError(true);
-      setPassword('');
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-background">
-      {/* Hero panel — inline-start side */}
       <aside
         aria-hidden="true"
         className="relative overflow-hidden lg:w-1/2 min-h-[280px] lg:min-h-screen bg-primary text-primary-foreground"
@@ -119,19 +151,12 @@ const LoginGate = ({ onSubmit }: { onSubmit: (pw: string) => boolean }) => {
             </p>
           </div>
 
-          <p className="text-xs text-primary-foreground/70">
-            {t('copyright')}
-          </p>
+          <p className="text-xs text-primary-foreground/70">{t('copyright')}</p>
         </div>
       </aside>
 
-      {/* Form panel */}
       <main className="lg:w-1/2 flex items-center justify-center p-6 sm:p-10 lg:p-12">
-        <form
-          onSubmit={handleSubmit}
-          className="w-full max-w-sm space-y-6"
-          aria-label={t('adminSignIn')}
-        >
+        <div className="w-full max-w-sm space-y-6">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
               <ShieldCheck size={14} className="text-primary" />
@@ -143,40 +168,19 @@ const LoginGate = ({ onSubmit }: { onSubmit: (pw: string) => boolean }) => {
             <p className="text-sm text-muted-foreground">{t('adminLoginDesc')}</p>
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="admin-password" className="text-start block">
-              {t('adminPassword')}
-            </Label>
-            <div className="relative">
-              <Lock
-                size={16}
-                className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
-              />
-              <Input
-                id="admin-password"
-                type="password"
-                autoFocus
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (error) setError(false);
-                }}
-                aria-invalid={error}
-                aria-describedby={error ? 'admin-error' : undefined}
-                className="ps-9 h-11"
-              />
-            </div>
-            {error && (
-              <p id="admin-error" className="text-sm text-destructive">
-                {t('adminIncorrectPassword')}
-              </p>
-            )}
-          </div>
-
-          <Button type="submit" className="w-full h-11 text-base font-semibold">
-            {t('adminSignIn')}
-            <ChevronRight size={16} className="rtl:rotate-180" />
+          <Button
+            type="button"
+            onClick={() => void onGoogle()}
+            className="w-full h-11 text-base font-semibold"
+            variant="outline"
+          >
+            <GoogleIcon />
+            {t('adminGoogleSignIn')}
           </Button>
+
+          <p className="text-xs text-muted-foreground text-center">
+            {t('adminGoogleOnlyHint')}
+          </p>
 
           <Link
             to="/"
@@ -185,16 +189,73 @@ const LoginGate = ({ onSubmit }: { onSubmit: (pw: string) => boolean }) => {
             <ArrowLeft size={14} className="rtl:rotate-180" />
             {t('adminBackToSite')}
           </Link>
-        </form>
+        </div>
       </main>
     </div>
   );
 };
 
+const NotAllowlistedGate = ({
+  email,
+  onSignOut,
+}: {
+  email: string;
+  onSignOut: () => void | Promise<void>;
+}) => {
+  const { t } = useApp();
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background px-6">
+      <div className="max-w-md text-center space-y-4">
+        <ShieldAlert className="mx-auto h-10 w-10 text-amber-500" />
+        <h1 className="text-2xl font-bold text-foreground">
+          {t('adminNotAllowlistedTitle')}
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          {t('adminNotAllowlistedDesc')}{' '}
+          <span className="font-mono text-foreground">{email}</span>
+        </p>
+        <div className="flex flex-wrap justify-center gap-3 pt-2">
+          <Button onClick={() => void onSignOut()}>{t('adminSignOutAndRetry')}</Button>
+          <Button variant="outline" asChild>
+            <Link to="/">{t('adminBackToSite')}</Link>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const GoogleIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+    <path
+      fill="#4285F4"
+      d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"
+    />
+    <path
+      fill="#34A853"
+      d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"
+    />
+    <path
+      fill="#FBBC05"
+      d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"
+    />
+    <path
+      fill="#EA4335"
+      d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"
+    />
+  </svg>
+);
+
 // -----------------------------------------------------------------------------
 // Chrome
 
-const AdminHeader = ({ onLogout }: { onLogout: () => void }) => {
+const AdminHeader = ({
+  email,
+  onLogout,
+}: {
+  email: string;
+  onLogout: () => void | Promise<void>;
+}) => {
   const { t } = useApp();
   return (
     <header className="bg-card border-b border-border sticky top-0 z-20 backdrop-blur-sm bg-card/95">
@@ -208,13 +269,19 @@ const AdminHeader = ({ onLogout }: { onLogout: () => void }) => {
           </span>
         </div>
         <div className="flex items-center gap-2">
+          <span
+            className="hidden sm:inline-block text-xs text-muted-foreground truncate max-w-[200px]"
+            title={email}
+          >
+            {email}
+          </span>
           <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link to="/">
               <ExternalLink size={14} />
               {t('adminViewSite')}
             </Link>
           </Button>
-          <Button variant="outline" size="sm" onClick={onLogout}>
+          <Button variant="outline" size="sm" onClick={() => void onLogout()}>
             <LogOut size={14} />
             <span className="hidden sm:inline">{t('adminLogout')}</span>
           </Button>
@@ -235,6 +302,7 @@ const Sidebar = ({
   const items: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: 'dashboard', label: t('adminDashboard'), icon: LayoutDashboard },
     { id: 'activities', label: t('adminActivities'), icon: ListChecks },
+    { id: 'settings', label: t('adminSettings'), icon: SettingsIcon },
   ];
 
   return (
@@ -443,6 +511,21 @@ const ActivitiesTab = () => {
         </p>
       </div>
       <ActivitiesPanel />
+    </div>
+  );
+};
+
+const SettingsTab = () => {
+  const { t } = useApp();
+  return (
+    <div className="space-y-4">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">{t('adminSettings')}</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          {t('adminSettingsDesc')}
+        </p>
+      </div>
+      <SettingsPanel />
     </div>
   );
 };
