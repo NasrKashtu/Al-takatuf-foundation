@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useApp } from '@/contexts/AppContext';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
@@ -143,10 +144,24 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-start">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-start">
             <span className="text-muted-foreground text-sm">
               {t('copyright')}
             </span>
+            <nav aria-label={t('footerLegal')} className="flex items-center gap-4 text-sm">
+              <Link
+                to="/privacy"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {t('footerPrivacy')}
+              </Link>
+              <Link
+                to="/terms"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {t('footerTerms')}
+              </Link>
+            </nav>
             <span className="text-primary font-bold text-base">
               {t('siteName')}
             </span>

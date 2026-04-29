@@ -109,6 +109,9 @@ const translations = {
     footerCoaching: "Personal Coaching",
     footerWorkshops: "Workshops",
     footerCommunity: "Community Programs",
+    footerLegal: "Legal",
+    footerPrivacy: "Privacy Policy",
+    footerTerms: "Terms of Use",
     copyright: "© 2025 Altakathuf. All rights reserved.",
     // Slider content
     sliderTitle: "Our Impact in Action",
@@ -308,6 +311,9 @@ const translations = {
     footerCoaching: "التدريب الشخصي",
     footerWorkshops: "ورش العمل",
     footerCommunity: "برامج المجتمع",
+    footerLegal: "قانوني",
+    footerPrivacy: "سياسة الخصوصية",
+    footerTerms: "شروط الاستخدام",
     copyright: "© 2025 التكاثف. جميع الحقوق محفوظة.",
     // Slider content
     sliderTitle: "تأثيرنا في العمل",
