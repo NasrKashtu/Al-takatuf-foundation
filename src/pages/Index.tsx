@@ -14,7 +14,7 @@ import SEO from '@/components/SEO';
 const Index = () => {
   return (
     <div className="min-h-screen w-full bg-background text-foreground">
-      <SEO path="/" />
+      <SEO path="/" organizationSchema />
       <Header />
       <HeroSection />
       <ImageSlider />

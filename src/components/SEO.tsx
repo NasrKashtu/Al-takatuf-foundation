@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useApp } from '@/contexts/AppContext';
-import { SITE_DEFAULTS, absoluteUrl } from '@/lib/site';
+import { SITE_DEFAULTS, SITE_URL, absoluteUrl } from '@/lib/site';
 
 interface SEOProps {
   title?: string;
@@ -9,7 +9,31 @@ interface SEOProps {
   image?: string;
   noindex?: boolean;
   type?: 'website' | 'article';
+  /** Emit the Organization JSON-LD block. Set on the home page only. */
+  organizationSchema?: boolean;
 }
+
+const ORGANIZATION_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: SITE_DEFAULTS.nameEn,
+  alternateName: SITE_DEFAULTS.nameAr,
+  url: SITE_URL,
+  logo: absoluteUrl('/favicon.png'),
+  description: SITE_DEFAULTS.descriptionEn,
+  email: 'altakatef1@gmail.com',
+  telephone: '+218-92-0252670',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Umm al-Aranib',
+    addressRegion: 'Eastern Municipality',
+    addressCountry: 'LY',
+  },
+  sameAs: [
+    'https://www.facebook.com/profile.php?id=61574523478564',
+    'https://www.linkedin.com/company/al-takathuf-foundation-for-community-development/',
+  ],
+};
 
 export const SEO = ({
   title,
@@ -18,6 +42,7 @@ export const SEO = ({
   image = SITE_DEFAULTS.ogImage,
   noindex = false,
   type = 'website',
+  organizationSchema = false,
 }: SEOProps) => {
   const { language } = useApp();
   const isAr = language === 'ar';
@@ -51,6 +76,12 @@ export const SEO = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={desc} />
       <meta name="twitter:image" content={imageUrl} />
+
+      {organizationSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(ORGANIZATION_SCHEMA)}
+        </script>
+      )}
     </Helmet>
   );
 };
