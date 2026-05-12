@@ -1,59 +1,32 @@
-# Welcome to Al-Takathuf project
+# Al-Takatuf Foundation
 
-## Project info
+Official website for **Al-Takatuf Foundation for Community Development** — a nonprofit platform built to amplify the foundation's reach with program showcases, multilingual content, and a donation-flow experience.
 
-**URL**: [Your Deployed URL]
+## Features
 
-## How can I edit this code?
+- Program and initiative showcase pages
+- Multilingual content support
+- Donation flow integration
+- Responsive, accessible design
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use your preferred IDE**
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes.
+## Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+git clone https://github.com/NasrKashtu/Al-takatuf-foundation.git
+cd Al-takatuf-foundation
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Author
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Deploy your project to your preferred hosting provider.
+**Nasr Kashtu** — [nasrkashtu@gmail.com](mailto:nasrkashtu@gmail.com)
