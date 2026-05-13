@@ -27,6 +27,11 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+##Langing Page 
+
+<img width="1665" height="1091" alt="Screenshot 2026-05-13 153843" src="https://github.com/user-attachments/assets/3a27fb65-db56-4846-bb45-cba54823f06c" />
+
+
 ## Author
 
 **Nasr Kashtu** — [nasrkashtu@gmail.com](mailto:nasrkashtu@gmail.com)
